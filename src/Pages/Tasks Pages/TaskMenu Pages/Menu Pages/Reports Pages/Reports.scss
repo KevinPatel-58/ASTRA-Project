@@ -1,0 +1,231 @@
+@use '../../../../../App.scss' as *;
+@use '../../../../../mixins' as *;
+
+.reports {
+    @include all-menu-pages();
+
+    .greet{
+        margin: 0;
+        font-size: x-large;
+        font-weight: bold;
+    }
+    .info{
+        margin: 0;
+        font-size: large;
+        color: rgb(130, 130, 130);
+    }
+
+    .toggle {
+      background: var(--border);
+      padding: 4px;
+      border-radius: 15px;
+      display: flex;
+      width: 12.5%;
+      margin-top: 20px;
+
+      button {
+        background: transparent;
+        color: var(--subtext);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 15px;
+        cursor: pointer;
+
+        &.active {
+          background-color: var(--text);
+          color: var(--bg);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    .card {
+        width: 97%;
+        min-height: 1010px;
+        height: 100%;
+        margin-top: 50px;
+
+        .card-container {
+            width: 100%;
+            height: 13%;
+            display: flex;
+            justify-content: space-between;
+
+            .task-card {
+                width: 20%;
+                height: 110%;
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+
+                .task-change{
+                  display:flex;
+                  justify-content: space-between;
+
+                  .change{
+                    .better{
+                      color: green;
+                    }
+                    .poor{
+                      color: red;
+                    }
+                  }
+                }
+
+                .fit {
+                    .num {
+                        font-size: xx-large;
+                        margin: 0;
+
+                        // &.critical { color: #ef4444; } // Red
+                        // &.warning { color: #f59e0b; }  // Orange/Amber
+                        // &.excellent { color: #10b981; } // Green
+                    }
+
+                    .sub-num-info {
+                        font-size: 0.85rem;
+                        color: var(--text-light); // Or a grey color
+                        margin: 0;
+                        font-weight: 500;
+                    }
+
+                    .small {
+                        margin: 0;
+                        font-size: medium;
+                        &.positive{
+                          color: rgb(82, 167, 82);
+                        }
+                        &.negative{
+                          color:red;
+                        }
+                    }
+                }
+            }
+        }
+        .graph-container{
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin-top: 30px;
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+        .graphs{
+            height:47%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-bottom: 30px;
+
+            .pie-graph{
+                width: 45%;
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding-left: 20px
+            }
+
+            .horizontal-bar{
+                @extend .pie-graph;
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+
+  .reports {
+    .greet {
+      margin-left: 20px;
+    }
+
+    .info {
+      margin-left: 20px;
+    }
+
+    .toggle{
+      margin-left: 20px;
+      width: 21.2%;
+      justify-content: center;
+    }
+    
+    .card {
+      width: 75%;
+      margin-top: 20px;
+      margin-right: 40px;
+      justify-self: center;
+
+      .card-container {
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+
+        .task-card,
+        .completion-card {
+          width: 100%;
+          height: auto;
+          padding: 15px;
+
+          .fit,
+          .completion-fit {
+            flex-direction: column;
+            gap: 5px;
+
+            .num,
+            .completion-num {
+              font-size: 1.8rem; 
+            }
+
+            .small,
+            .completion-small {
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+
+      .graph-container {
+        height: auto;
+        padding: 15px;
+        margin-top: 20px;
+      }
+
+      .graphs {
+        flex-direction: column;
+        height: auto;
+        margin-top: 20px;
+        gap: 20px;
+
+        .pie-graph,
+        .horizontal-bar {
+          width: 100%;
+          padding: 15px;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .reports {
+    overflow-x: hidden;
+    .greet {
+      font-size: large;
+      margin-left: 20px;
+    }
+
+    .info {
+      font-size: medium;
+      margin-left: 20px;
+    }
+
+    .toggle{
+      margin-left: 20px;
+      width: 45.2%;
+    }
+  }
+}

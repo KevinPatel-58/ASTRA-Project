@@ -1,0 +1,198 @@
+
+$primary: dodgerblue;
+$danger: red;
+$danger-hover: tomato;
+$accent: fuchsia;
+$light: azure;
+$hover-light: bisque;
+$dark-bg: black;
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+$background-color: #11111a;
+$card-color: #1c1c28;
+$text-color: white;
+$light-text: #999;
+$accent-color: #6c63ff;
+
+:root {
+  --bg: #0f172a;
+  --card: rgba(255,255,255,0.05);
+  --text: #ffffff;
+  --subtext: #cbd5f5;
+  --border: rgba(255,255,255,0.1);
+}
+
+.light {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --subtext: #475569;
+  --border: rgba(0,0,0,0.1);
+}
+
+.nav{
+    align-items: center;
+    
+    .navlink{
+        text-decoration: none;
+        margin: 20px;
+    }
+}
+
+.reload-indicator{
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  z-index: 9999;
+}
+
+.reload-icon{
+  font-size: 26px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+}
+
+.global-voice-overlay {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999; /* Stay above everything */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+    max-width: 600px;
+    pointer-events: none; /* Allows clicking through to buttons behind subtitles */
+}
+
+.subtitle {
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+    text-align: center;
+}
+
+.user-speech {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border-left: 5px solid #007bff;
+}
+
+.assistant-speech {
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    border-left: 5px solid #28a745;
+    font-weight: 500;
+}
+
+.label {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Voice Help Menu Styles --- */
+.help-voice-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  
+  .help-box {
+    background: var(--bg-color, #1e1e2e); /* adapts to your theme */
+    color: var(--text-color, #ffffff);
+    padding: 24px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    .help-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+
+      h3 { margin: 0; font-size: 1.5rem; }
+      
+      .close-btn {
+        background: transparent;
+        border: none;
+        color: inherit;
+        font-size: 1.2rem;
+        cursor: pointer;
+        opacity: 0.7;
+        &:hover { opacity: 1; }
+      }
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+
+      .help-column {
+        h4 {
+          margin-top: 0;
+          color: #a8b2d1;
+          font-size: 1.1rem;
+          margin-bottom: 10px;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            padding: 6px 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+            &:last-child { border-bottom: none; }
+          }
+        }
+      }
+    }
+
+    .help-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      font-style: italic;
+    }
+  }
+}

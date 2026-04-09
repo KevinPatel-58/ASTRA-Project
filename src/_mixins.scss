@@ -1,0 +1,148 @@
+@use './App.scss' as *;
+
+@mixin grid-style($color) {
+  border: 1px solid gray;
+  border-radius: 7px;
+  margin: auto;
+  display: block;
+  padding: 35px 0px;
+  background: $color;
+  max-width: 500px;
+  width: 100%;
+}
+
+@mixin button-style($bg) {
+  background-color: $bg;
+  color: white;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer !important;
+  transition: $transition-slow;
+  
+}
+
+@mixin input-style() {
+  display: flex;
+  align-items: center;
+  margin-left: 75px;
+  margin-top: 30px;
+  width: 1000px;
+}
+
+@mixin input-styless(){
+    border: none;
+    background: rgb(241, 240, 240);
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 90%;
+    cursor:text;
+
+    &:focus {
+      outline: none;
+      border-color: $accent;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+}
+
+@mixin fields() {
+  padding: 5px;
+  width: 20%;
+  height: 25px;
+  margin-left: 50px;
+  border-radius: 8px;
+  border: 1px solid #c2d3e9;
+  transition: 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  }
+}
+
+@mixin text {
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+}
+
+@mixin auth-link($padding: 8px 18px) {
+  display: block;
+  margin: 10px auto;
+  padding: $padding;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: transparent;
+  color: $accent;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: $transition-normal;
+  text-align: center;
+  width: 80px;
+
+  &:hover {
+    background-color: rgba(99, 102, 241, 0.1); 
+    border-color: $accent;
+    color: $accent;
+  }
+}
+
+@mixin all-menu-pages(){
+  height: 97%;
+  background:var(--bg);
+  color: var(--text);
+  padding-top: 20px;
+  padding-left: 20px;
+  overflow-y:scroll;
+}
+
+@mixin all-title() {
+  height: 8px;
+  width: 10%;
+  padding-left: 6px;
+  display: flex;
+  align-items: center;
+
+  .logo {
+    height: 40px;
+    width: 40px;
+    margin-right: 2px;
+  }
+
+}
+
+@mixin icon-box {
+  font-size: larger;
+  padding: 8px;
+  background: var(--card);
+  border-radius: 5px;
+  color: rgba(148, 163, 184, 1);
+}
+
+@mixin card {
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid transparent;
+  padding-left: 30px;
+  padding-right:30px;
+}
+
+@mixin flex-gap($gap){
+  display:flex;
+  align-items:center;
+  gap:$gap;
+}
+
+@mixin flex-between{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+@mixin flex-column{
+  display:flex;
+  flex-direction:column;
+}
+

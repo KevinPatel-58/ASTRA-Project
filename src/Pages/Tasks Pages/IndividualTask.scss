@@ -1,0 +1,413 @@
+@use '../../App.scss' as *;
+@use '../../mixins' as *;
+
+.individual {
+    width: 100%;
+    height: 100%;
+
+    .header {
+        border-width: 97%;
+        height: 62px;
+        padding-left: 24px;
+        padding-right: 12px;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg);
+        color: var(--subtext);
+        
+        .flex {
+            @include flex-between;
+            height: 100%;
+
+            .title {
+                @include all-title();
+            }
+
+            .links {
+                @include flex-between;
+            }
+
+            .user-head{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .user {
+                    margin-right: 20px;
+                    .icon {
+                        font-size: 40px;
+                        cursor: pointer;
+                        transition: $transition-fast;
+
+                        &:hover{
+                            transform: scale(1.2);
+                        }
+                    }
+                }
+
+                .theme-btn {
+                    background: var(--card);
+                    border: 1px solid var(--border);
+                    color: var(--text);
+                    padding: 8px 12px;
+                    border-radius: 8px;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+            
+        }
+    }
+
+    .space {
+        //background: rgba(246, 246, 248, 1);
+        background: var(--bg);
+        min-height: 668px;
+        height: 100%;
+        padding-top: 20px;
+
+        .page-container {
+            max-width: 1250px;
+            width: 90%;
+            margin-top: 20px;
+            padding-top: 32px;
+            padding-right: 16px;
+            padding-bottom: 32px;
+            padding-left: 16px;
+            gap: 32px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            justify-self: center;
+            //background: rgba(246, 246, 248, 1);
+            background: var(--card);
+            color: var(--text);
+
+            span {
+                @include flex-between;
+                height: 35px;
+                border: 1px solid transparent;
+                padding-left: 10px;
+
+                .edits {
+                    @include flex-gap(20px);
+                    justify-content: end;
+
+                    p{
+                        cursor: pointer;
+                    }
+
+                    .edit-btn {
+                        height: 40px;
+                        margin: auto;
+                        border: 1px solid transparent;
+                        border-radius: 5px;
+                        background-color: fuchsia;
+                        padding-left: 20px;
+                        padding-right: 20px;
+                        color: aliceblue;
+                        cursor: pointer;
+
+                        &:hover{
+                            background: rgb(245, 81, 245);
+                        }
+                    }
+                }
+            }
+
+            .task-container {
+                @include flex-between;
+                justify-content: center;
+                margin-top: 20px;
+                gap: 40px;
+                padding-bottom: 20px;
+                border: 1px solid transparent;
+
+                .main-task {
+                    width: 70%;
+                    border: 1px solid transparent;
+                    margin-right: 0;
+
+                    .task-detail {
+                        @include card;
+                        padding-bottom: 20px;
+                        background: var(--subtext);
+
+                        .task-title-row{
+                            @include flex-between;
+                            color: var(--bg);
+                            
+                            .title-icon{
+                                font-size: xx-large;
+                                padding: 10px;
+                                background: rgba(34, 197, 94, 0.1);
+                                border-radius: 8px;
+                                color: rgba(22, 163, 74, 1);
+                            }
+                        }
+
+                        .above{
+                            padding-bottom: 20px;
+                            .desc{
+                                font-weight: 700;
+                                color: rgba(148, 163, 184, 1);
+                            }
+                            .describe{
+                                text-align: justify;
+                                color: var(--bg);
+                            }
+                        }
+
+                        .horizontal-zone{
+                            height: 22%;
+                            border-top: 1px solid var(--bg);
+                            margin-top: 8px;
+
+                            .first-row{
+                                display:flex;
+
+                                .category-zone{
+                                    width: 50%;
+                                    margin-top: 20px;
+                                    display: block;
+
+                                    .zone-container{
+                                        @include flex-gap(20px);
+
+                                        .zone-icon{
+                                            @include icon-box;
+                                        }
+
+                                        .zone-text{
+                                            @include flex-column;
+
+                                            .title-name{
+                                                color: rgba(148, 163, 184, 1);
+                                                margin: 0;
+                                            }
+
+                                            .title-info{
+                                                margin: 0;
+                                                color: var(--bg)
+                                            }
+                                        }
+                                    }
+  
+                                }
+                                .due-zone{
+                                    @extend .category-zone;
+                                    margin-left: 20px;
+                                }
+                            }
+
+                            .second-row{
+                                @extend .first-row;
+
+                                .reminder-zone{
+                                    @extend .category-zone;
+                                }
+                                .created-zone{
+                                    @extend .due-zone;
+                                }
+                            }
+
+                            .reminder-zone{
+                                @extend .category-zone;
+                            }
+                        }
+  
+                    }
+                    .task-progress {
+                        @include card;
+                        margin-top: 20px;
+                        height: 15%;
+                        @include flex-between;
+                        background: var(--subtext);
+
+                        .status{
+                            @include flex-gap(20px);
+                            font-size: large;
+                            font-weight: 500;
+                            color: var(--bg);
+
+                            .task-icon{
+                                font-size: larger;
+                                padding: 8px;
+                                color: rgba(148, 163, 184, 1);
+                            }
+                        }
+
+                        .mark-complete{
+                            background-color: transparent;
+                            color: fuchsia;
+                            font-weight: bold;
+                            border-radius: 10px;
+                            border: 3px solid fuchsia;
+                            padding: 10px 10px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .right-panel{
+                    @include flex-column;
+                    gap: 16px;
+                    width: 55%;
+                    height: 100%;
+                    margin-right: 0;
+                    
+                    .voice-task {
+                        @include card;
+                        height: 100%;
+                        background-color: fuchsia;
+                        color: white;
+                        padding-bottom: 20px;
+
+                        .voice-title{
+                            font-size: x-large;
+                            font-weight: 600;
+                        }
+
+                        .voice-detail{
+                            font-size: medium;
+                            font-weight: lighter;
+                        }
+
+                        .complete-card{
+                            display: flex;
+                            align-items: center;
+                            padding: 10px;
+                            font-size: small;
+                            font-weight: 600;
+                            border: 1px solid transparent;
+                            border-radius: 5px;
+                            background-color: rgb(231, 26, 231);
+                            width: 95%;
+
+                            .vsc{
+                                font-size:medium;
+                                font-weight: bolder;
+                                margin-right: 15px;
+                            }
+                        }
+
+                        .reschedule-card{
+                            @extend .complete-card;
+                        }
+
+                        .reminder-card{
+                            @extend .complete-card;
+                        }
+                    }
+
+                    .previous{
+                        margin-top: 20px;
+                        padding: 10px 18px;
+                        border-radius: 8px;
+                        border: none;
+                        background: #1e293b;
+                        color: white;
+                        cursor: pointer;
+                        transition: 0.2s;
+
+                        &:hover{
+                            background: #334155;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        backdrop-filter: blur(3px);
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        overflow-y: scroll;
+
+        .modal-box {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+  .individual {
+    .header {
+      .links{
+        margin-left: 40px;
+      }
+      
+    }
+    .page-container {
+      width: 100%;
+      padding: 16px;
+    }
+
+    .task-container {
+      flex-direction: column;
+      height: auto;
+      gap: 20px;
+
+      .main-task {
+        width: 100%;
+      }
+
+      .right-panel {
+        width: 100%;
+        margin-top: 20px;
+        margin-right: 40px;
+      }
+    }
+
+    .horizontal-zone {
+      flex-direction: column;
+
+      .first-row,
+      .second-row {
+        flex-direction: column;
+
+        .category-zone,
+        .due-zone,
+        .reminder-zone,
+        .created-zone {
+          width: 100%;
+          margin-left: 0;
+
+          .zone-container {
+            flex-direction: row; 
+            align-items: flex-start;
+          }
+
+          .zone-icon {
+            min-width: 20px;
+            min-height: 20px; 
+            display: flex;
+            align-items: center;
+        }
+
+          .zone-text {
+            .title-name {
+              font-size: 14px;
+            }
+
+            .title-info {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    .task-progress {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding-bottom: 20px;
+    }
+  }
+}
