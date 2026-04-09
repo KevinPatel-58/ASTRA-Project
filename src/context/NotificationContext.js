@@ -10,7 +10,6 @@ export default function NotificationProvider({ children }) {
   const [settings, setSettings] = useState(null);
   const [user, setUser] = useState(null);
 
-  
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user);
@@ -43,7 +42,6 @@ export default function NotificationProvider({ children }) {
 
     // 2. If table is empty (data is null), create the row!
     if (!data) {
-      console.log("No settings found. Creating default row for user:", user.id);
       
       const defaultSettings = {
         user_id: user.id,
@@ -65,7 +63,6 @@ export default function NotificationProvider({ children }) {
         setSettings(newRow);
       }
     } else {
-      // 3. Row exists, just set the state
       setSettings(data);
     }
   };
@@ -90,7 +87,6 @@ export default function NotificationProvider({ children }) {
             filter: `user_id=eq.${user.id}`, 
         },
         (payload) => {
-            console.log("Realtime:", payload);
 
             if (payload.eventType === "INSERT") {
               //setNotifications((prev) => [payload.new, ...prev]);
@@ -176,23 +172,18 @@ export default function NotificationProvider({ children }) {
     const { error } = await supabase
       .from("notification_settings")
       .upsert( 
-        updatedSettings, // Keep old settings
-              // Overwrite with new ones
+        updatedSettings, 
        { onConflict: 'user_id' })
       .select()
       .single();
 
     if (error) {
       console.error("Error updating settings:", error.message);
-      // Rollback if DB update fails
       fetchSettings(); 
     }
   };
   
   const createNotification = async (type, message,taskId=null) => {
-    //Check settings before sending
-    // if (type === 'success' && settings?.completion_updates) return;
-    // if (type === 'warning' && settings?.due_alerts) return;
 
     if (!user) return;
     if(settings.enable_reminder===false) return;
@@ -201,13 +192,6 @@ export default function NotificationProvider({ children }) {
         if (type === 'success' && settings?.completion_updates === false) return;
         if (type === 'warning' && settings?.due_alerts === false) return;
     }
-
-    // if (taskId) {
-    //   await supabase
-    //     .from("notifications")
-    //     .delete()
-    //     .match({ user_id: user.id, task_id: taskId, type: type });
-    // }
 
     const { error } = await supabase
                       .from("notifications")
@@ -235,7 +219,6 @@ export default function NotificationProvider({ children }) {
 
     if (error) console.error("Error removing notification:", error.message);
     else {
-        // Optimistically update local state so it disappears instantly
         setNotifications((prev) => prev.filter((n) => !(n.task_id === taskId && n.type === type)));
     }
   };

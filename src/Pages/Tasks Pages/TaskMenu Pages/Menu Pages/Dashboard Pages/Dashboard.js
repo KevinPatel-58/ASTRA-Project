@@ -1,4 +1,3 @@
-
 import './Dashboard.scss';
 import DashboardGraph from "./DashboardGraph";
 import { useEffect, useState } from "react";
@@ -23,7 +22,6 @@ export default function Dashboard(){
                 .select("*")
                 .eq("id",userId)
                 .single();
-            console.log("data:",data);
             if(error){
                 toast(error.message);
             }

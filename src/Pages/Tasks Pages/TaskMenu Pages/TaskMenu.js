@@ -23,7 +23,6 @@ export default function TaskMenu(){
     const location=useLocation();
     const navigate = useNavigate();
     const{startListening,stopListening,isListening,isSpeaking,flow,refreshSignal,speak}=useVoice();
-    // Inside TaskMenu component
     const [punctuality, setPunctuality] = useState(0);
     //const{isListening,isUserSpeaking} = useVoice();
 
@@ -52,10 +51,6 @@ export default function TaskMenu(){
         return()=>stopListening();
     },[])
 
-    // useEffect(() => {
-    //   localStorage.setItem("theme", theme);
-    // }, [theme]);
-
     const toggleTheme = () => {
       setTheme(prev => 
         prev === "dark" ? "light" : "dark"
@@ -70,7 +65,6 @@ export default function TaskMenu(){
                 .select("*")
                 .eq("id",userId)
                 .single();
-            console.log("data:",data);
             if(error){
                 toast(error.message);
             }
@@ -79,7 +73,6 @@ export default function TaskMenu(){
 
     useEffect(()=>{
         getUser();
-        //console.log("name:",name)
     },[]);
 
 
@@ -91,7 +84,6 @@ export default function TaskMenu(){
     
     const logout = async () =>{
         await supabase.auth.signOut();
-        //setProfile({});
         navigate('/login');
         window.location.reload();
     }

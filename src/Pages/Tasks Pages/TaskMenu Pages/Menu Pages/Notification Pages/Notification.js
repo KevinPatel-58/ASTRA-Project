@@ -1,4 +1,3 @@
-
 import Select from 'react-select';
 import Toggle from '../../../../../Components/Toggle';
 import './Notification.scss';

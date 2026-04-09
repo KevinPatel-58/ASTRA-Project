@@ -5,7 +5,6 @@ import { FaPenToSquare, FaRegCircleUser } from "react-icons/fa6";
 import './Profile.scss';
 import { toast } from "react-toastify";
 import ProfileSkeleton from "../../Components/ProfileSkeleton";
-//import {ProfileSkeleton} from '../../Components/ProfileSkeleton';
 
 export default function Profile(){
     const[profile,setProfile]=useState(null);
@@ -14,72 +13,69 @@ export default function Profile(){
     const[preview,setPreview]=useState(false);
 
     const getData = async () => {
-            const{data:userData}=await supabase.auth.getUser();
-            setEmail(userData.user.email);
+      const{data:userData}=await supabase.auth.getUser();
+      setEmail(userData.user.email);
 
-            const userId=userData.user.id;
-            const{data,error}=await supabase
-                .from("users")
-                .select("*")
-                .eq("id",userId)
-                .single();
-                
-            if(error){
-                toast(error.message)
-            }
-            setProfile(data);
-            //console.log(profile);
+      const userId=userData.user.id;
+      const{data,error}=await supabase
+          .from("users")
+          .select("*")
+          .eq("id",userId)
+          .single();
+          
+      if(error){
+          toast(error.message)
+      }
+      setProfile(data);
     };
 
     useEffect(()=>{
         getData();
-        //console.log({profile});
     },[]);
 
     async function logout() {
-        await supabase.auth.signOut();
-        navigate("/login");
+      await supabase.auth.signOut();
+      navigate("/login");
     }
 
     const uploadImage = async (event) => {
       const File=event.target.files[0];
-      console.log("File===",File)
       if(!File) return;
       try{
-          const fileName=`private/${profile.id}/${File.name}`;
-          const{error}=await supabase
-          .storage
-          .from('avatar')
-          .upload(fileName,File,{upsert:true});
-    
-          if(error){
-            toast(error.message);
-            return;
-          }
-    
-          const{data:urlData}= supabase
-          .storage
-          .from('avatar')
-          .getPublicUrl(fileName);
-    
-          if (!urlData.publicUrl) return toast("Could not get public URL");
-    
-          const imageUrl=urlData.publicUrl;
-    
-          const{error:dbError}= await supabase
-          .from('users')
-          .update({avatar_url:imageUrl})
-          .eq('id',profile.id);
-    
-          if (dbError) return toast("DB update failed: " + dbError.message);
-    
-          setProfile((prev)=>({...prev,avatar_url:imageUrl}));
-          
-          toast("image added!!");
-        } catch (err) {
-              toast("Unexpected error: " + err.message);
-      }
+        const fileName=`private/${profile.id}/${File.name}`;
+        const{error}=await supabase
+        .storage
+        .from('avatar')
+        .upload(fileName,File,{upsert:true});
+  
+        if(error){
+          toast(error.message);
+          return;
         }
+  
+        const{data:urlData}= supabase
+        .storage
+        .from('avatar')
+        .getPublicUrl(fileName);
+  
+        if (!urlData.publicUrl) return toast("Could not get public URL");
+  
+        const imageUrl=urlData.publicUrl;
+  
+        const{error:dbError}= await supabase
+        .from('users')
+        .update({avatar_url:imageUrl})
+        .eq('id',profile.id);
+  
+        if (dbError) return toast("DB update failed: " + dbError.message);
+  
+        setProfile((prev)=>({...prev,avatar_url:imageUrl}));
+        
+        toast("image added!!");
+      } catch (err) {
+          toast("Unexpected error: " + err.message);
+      }
+    }
     
     function update(){
       navigate('/updateUser');

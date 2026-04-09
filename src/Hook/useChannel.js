@@ -7,7 +7,6 @@ export function useChannel(event, callback) {
     const channel = supabase
       .channel("task-broadcast",{ config: { broadcast: { self: true } } })
       .on("broadcast", { event: event }, (payload) => {
-        console.log(`Broadcast received for ${event}:`, payload.payload);
         if (callback) callback(payload.payload);
       })
       .subscribe((status) => {

@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import './AddTask.scss'
 import { useEffect, useRef, useState } from 'react';
@@ -44,8 +43,6 @@ export default function AddTask({modalMode=false, onClose, mode="add", taskData=
     // When voice reaches Category step
         if (currentStep === 2 && isSpeaking) {
             categoryRef.current?.focus(); 
-            // Note: This highlights the box. To actually see the options 
-            // without a click, we use a visual "pop" class.
         }
     }, [currentStep, isSpeaking]);
 
@@ -169,8 +166,6 @@ export default function AddTask({modalMode=false, onClose, mode="add", taskData=
         }
     },[mode,taskData,initialDate]);
 
-    
-
     const savedTask = async () => {
         if(!Validation()) return;
 
@@ -284,8 +279,6 @@ export default function AddTask({modalMode=false, onClose, mode="add", taskData=
 
                 <form onSubmit={(e)=>{e.preventDefault(); savedTask();}}
                     onKeyDown={(e) => {
-                    // If user presses Enter AND they are NOT inside the SunEditor
-                    // (SunEditor uses its own internal logic, so we let it handle paragraphs)
                         if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && !e.target.classList.contains('se-wrapper-inner')) {
                             e.preventDefault();
                             savedTask();

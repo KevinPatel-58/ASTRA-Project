@@ -63,7 +63,7 @@ export default function Reports() {
     const now = new Date();
 
     // -------------------------
-    // 🗓️ DATE HELPERS
+    // DATE HELPERS
     // -------------------------
     const getMonday = (date) => {
       const d = new Date(date);
@@ -113,7 +113,7 @@ export default function Reports() {
     }
 
     // -------------------------
-    // 📦 FETCH TASKS
+    // FETCH TASKS
     // -------------------------
     const { data: tasks, error } = await supabase
       .from("tasks")
@@ -137,7 +137,7 @@ export default function Reports() {
     };
 
     // -------------------------
-    // ✂️ SPLIT CURRENT / PREVIOUS
+    // SPLIT CURRENT / PREVIOUS
     // -------------------------
     const currentTasks = [];
     const previousTasks = [];
@@ -153,7 +153,7 @@ export default function Reports() {
     });
 
     // -------------------------
-    // 📊 COUNT FUNCTION
+    // COUNT FUNCTION
     // -------------------------
     const getCounts = (taskList) => {
       let completed = 0,
@@ -193,7 +193,7 @@ export default function Reports() {
     };
 
     // -------------------------
-    // 📊 GRAPH DATA (CALENDAR BASED)
+    // GRAPH DATA (CALENDAR BASED)
     // -------------------------
     let grouped = {};
 
@@ -264,7 +264,7 @@ export default function Reports() {
       const limitedGraphData = graphData.slice(-4);
 
     // -------------------------
-    // 🥧 CATEGORY DATA
+    // CATEGORY DATA
     // -------------------------
     let completed = 0;
     let todo = 0;
@@ -300,7 +300,7 @@ export default function Reports() {
       total === 0 ? 0 : Math.round((completed / total) * 100);
 
     // -------------------------
-    // ✅ FINAL STATE
+    // FINAL STATE
     // -------------------------
     setData({
       completed,

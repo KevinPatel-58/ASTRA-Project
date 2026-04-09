@@ -1,4 +1,3 @@
-
 import './Signup.scss';
 import { useEffect, useState } from 'react';
 import { supabase } from "../../util/supabase";
@@ -40,7 +39,6 @@ function App() {
       }));
       isValid=false;
     }
-
     return isValid;
   }
 
@@ -75,7 +73,6 @@ function App() {
         navigate("/login");
         setUser({name:"",email:"",password:"",assistant_name:"",voice:""});
       }
-      console.log(data.session);
   }
 
    useEffect(()=>{

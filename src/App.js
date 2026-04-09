@@ -253,12 +253,6 @@ function App() {
             </Protected>
           } />
 
-          {/* <Route path="/analysis" element={
-            <Protected>
-              <Analysis />
-            </Protected>
-          } /> */}
-
           <Route path="/individualtask/:id" element={
             <Protected>
               <IndividualTask />

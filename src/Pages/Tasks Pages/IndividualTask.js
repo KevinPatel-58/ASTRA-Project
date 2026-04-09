@@ -88,7 +88,6 @@ export default function IndividualTask(){
             default:
                 break;
         }
-        // Reset the action so it doesn't fire again on next render
         setVoiceTaskData({});
     };
 
@@ -97,16 +96,6 @@ export default function IndividualTask(){
             executeVoice();
         }
     },[voiceTaskData]);
-
-    // Inside your Task Component
-    // useEffect(() => {
-    //     if (voiceTaskData.confirmed) {
-    //         saveTaskToSupabase(voiceTaskData).then(() => {
-    //         // Only clear the data once the database is updated!
-    //         setVoiceTaskData({}); 
-    //         });
-    //     }
-    // }, [voiceTaskData]);
 
     useEffect(()=>{
         startListening();

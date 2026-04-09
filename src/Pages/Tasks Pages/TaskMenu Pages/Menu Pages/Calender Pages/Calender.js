@@ -13,10 +13,7 @@ export default function Calender() {
   const[isModalOpen,setIsModalOpen]=useState(false);
       
   const changeMonth = (direction) => {
-    //setSelectedDate(selectedDate.add(direction,'month'));
-    
     setCurrentMonth(currentMonth.add(direction, 'month'));
-    //setSelectedDate(null);
   };
 
   const fetchTasks = async () => {

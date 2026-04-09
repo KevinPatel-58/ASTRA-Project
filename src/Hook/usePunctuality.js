@@ -2,8 +2,6 @@ import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "../util/supabase";
 
-
-// Utility logic (can go inside TaskMenu.js or a separate helper file)
 export function calculatePunctuality(tasks) {
     const completedTasks = tasks.filter(t => t.status === 'Completed');
     if (completedTasks.length === 0) return 0;

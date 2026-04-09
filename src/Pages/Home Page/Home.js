@@ -13,25 +13,8 @@ export default function Home(){
     const navigate=useNavigate();
     const[email,setEmail]=useState("");
     const [tasks, setTasks] = useState([]);
-    // const [theme, setTheme] = useState(
-    //   localStorage.getItem("theme") || "dark"
-    // );
     const{startListening}=useVoice();
     // const [notifiedTasks, setNotifiedTasks] = useState({});
-
-
-    // useEffect(() => {
-    //   localStorage.setItem("theme", theme);
-    // }, [theme]);
-
-    // const toggleTheme = () => {
-    //   setTheme(prev => {
-    //     const newTheme = prev === "dark" ? "light" : "dark";
-    //     localStorage.setItem("theme", newTheme);
-    //     document.body.className = newTheme; // only for instant effect
-    //     return newTheme;
-    //   });
-    // };
 
     const fetchTasks = async () => {
 
@@ -48,8 +31,6 @@ export default function Home(){
       if(error){
         return toast("Task fetch error:", error);
       }
-
-      // console.log("Today's tasks:", data);
 
       setTasks(data || []);
 
@@ -78,7 +59,6 @@ export default function Home(){
             .select("*")
             .eq("id",userId)
             .maybeSingle();
-        console.log("fetched data",data);
         if(error){
             toast(error.message);
         }
@@ -117,140 +97,6 @@ export default function Home(){
       window.speechSynthesis.speak(message);
     }
 
- 
-  // Assistant Speech
-  
-  // function speakText(text) {
-  //   const message = new SpeechSynthesisUtterance(text);
-  //   message.lang = "en-IN";
-
-  //   const voices = window.speechSynthesis.getVoices();
-  //   message.voice = voices[0];
-
-  //   window.speechSynthesis.speak(message);
-  // }
-
-  // // Command Handler
-  
-  // const handleCommand = (command) => {
-  //   console.log("User command:", command);
-
-  //   if (command.includes("open task menu")) {
-  //     speakText("Opening task menu");
-  //     navigate("/taskMenu");
-
-  //   } else if (command.includes("open add task")) {
-  //     speakText("Opening add task page");
-  //     navigate("/addTask");
-
-  //   } else if (command.includes("open analysis")) {
-  //     speakText("Opening analysis page");
-  //     navigate("/analysis");
-
-  //   } else {
-  //     speakText("Sorry, page not found");
-  //   }
-  // }
-
-  
-  // // Command Listening
-  
-  // const startListening = () => {
-  //   const SpeechRecognition =
-  //     window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  //   if (!SpeechRecognition) {
-  //     toast("Speech Recognition not supported");
-  //     return;
-  //   }
-
-  //   const recognition = new SpeechRecognition();
-
-  //   recognition.lang = "en-IN";
-  //   recognition.continuous = false;
-  //   recognition.interimResults = false;
-
-  //   const timeout = setTimeout(() => {
-  //     recognition.stop();
-  //     speakText("Please give the input");
-  //   }, 10000);
-
-  //   recognition.start();
-
-  //   recognition.onresult = (event) => {
-  //     clearTimeout(timeout);
-
-  //     const command =
-  //       event.results[0][0].transcript.toLowerCase();
-
-  //     handleCommand(command);
-  //   };
-
-  //   recognition.onerror = (event) => {
-  //     console.log(event.error);
-  //   };
-  // }
-
-  
-  // // Wake Word Detection
-  
-  // useEffect(() => {
-  //   if (!profile) return;
-
-  //   const SpeechRecognition =
-  //     window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  //   if (!SpeechRecognition) return;
-
-  //   const recognition = new SpeechRecognition();
-
-  //   recognition.continuous = true;
-  //   recognition.lang = "en-IN";
-  //   recognition.interimResults = false;
-
-  //   recognition.start();
-
-  //   recognition.onresult = (event) => {
-  //     const speech =
-  //       event.results[event.results.length - 1][0].transcript.toLowerCase();
-
-  //     console.log("Heard:", speech);
-
-  //     const wakeWord =
-  //       "hello " + profile.assistant_name.toLowerCase();
-
-  //     if (speech.includes(wakeWord)) {
-  //       speakText("Yes, I am listening");
-  //       startListening();
-  //     }
-  //   };
-
-  //   recognition.onend = () => {
-  //     console.log("Wake word listener ended. Restarting...");
-      
-  //     try {
-  //       recognition.start();
-  //     } catch (err) {
-  //       console.log("Already started or error: ", err);
-  //     }
-  //   };
-
-  //   recognition.onerror = (e) => {
-  //     console.log(e.error);
-  //   };
-
-
-  //   return () => {
-  //     recognition.onend=null;
-  //     recognition.stop();
-  //   }
-  // }, [profile]);
-
-    // function detail(){
-    //   if(!profile) return;
-    //   navigate("/profile");
-    // }
-
     return (
       <div className="home">
         {!profile ? (
@@ -260,21 +106,6 @@ export default function Home(){
           </div>
         ) : (
           <div>
-            {/* <div className="header">
-              <div className="u-info">
-                <FaRegCircleUser className="user" onClick={detail} />
-                <div className="u-detail">
-                  <p className="user-name">{profile.name}</p>
-                  <p className="user-email">{email}</p>
-                </div>
-              </div>
-              <button className="outbtn" onClick={logout}>Logout</button>
-              <div className="theme">
-                <button onClick={toggleTheme} className="theme-btn">
-                  {theme === "dark" ? "🌙" : "☀️"}
-                </button>
-              </div>
-            </div> */}
             <div className="hero">
               <div className="hero-text">
                 <h1>Welcome back, {profile.name} <span className="wave">👋</span> </h1>
@@ -323,21 +154,6 @@ export default function Home(){
                   <VscRobot className="icon" onClick={handleAssistantClick} />
                   <p>Click to talk with {profile.assistant_name}</p>
                 </div>
-
-                {/* <div className="quick-links">
-                  <Link to='/taskMenu' className="link-card">
-                    <h3>📋 Task Manager</h3>
-                    <p>Manage, update and track all your daily tasks</p>
-                  </Link>
-                  <Link to='/addTask' className="link-card">
-                    <h3>➕ Add New Task</h3>
-                    <p>Create tasks with reminders and smart scheduling</p>
-                  </Link>
-                  <Link to="/taskMenu/reports" className="link-card">
-                    <h3>📊 Task Insights</h3>
-                    <p>Analyze your productivity and completion trends</p>
-                  </Link>
-                </div> */}
 
               </div>
 

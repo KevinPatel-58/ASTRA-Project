@@ -186,17 +186,6 @@ export default function Tasks() {
             }
     };
 
-    // function TaskItem({ task }) {
-    //     const { createNotification } = useNotification();
-
-    //     const handleComplete = async () => {
-    //         // 1. Update task in DB...
-            
-    //         // 2. Trigger the notification manually
-    //         await createNotification('success', `Great job! You finished: ${task.title}`);
-    //     };
-    // }
-
     const handleDeleteTask = async (e,id) => {
         e.stopPropagation();
         const{error}=await supabase

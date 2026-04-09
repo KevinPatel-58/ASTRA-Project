@@ -53,10 +53,8 @@ export default function Login(){
         } catch (e) {
             console.log('nope');
             console.error("Could not sync player_id:", e);
-
         }
             navigate("/taskMenu");
-        
     }
 
     useEffect(()=>{
