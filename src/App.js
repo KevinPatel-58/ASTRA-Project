@@ -10,9 +10,7 @@ import ResetRequest from "./Pages/Forget Password Pages/ResetPasswordRequest";
 import UpdatePassword from "./Pages/Forget Password Pages/UpdatePassword";
 import TaskMenu from "./Pages/Tasks Pages/TaskMenu Pages/TaskMenu";
 import AddTask from "./Pages/Tasks Pages/AddTask";
-
 import IndividualTask from "./Pages/Tasks Pages/IndividualTask";
-import Dashboard from "./Pages/Tasks Pages/TaskMenu Pages/Menu Pages/Dashboard Pages/Dashboard";
 import Tasks from "./Pages/Tasks Pages/TaskMenu Pages/Menu Pages/All Tasks Pages/TaskPage";
 import Calender from "./Pages/Tasks Pages/TaskMenu Pages/Menu Pages/Calender Pages/Calender";
 import Reports from "./Pages/Tasks Pages/TaskMenu Pages/Menu Pages/Reports Pages/Reports";
@@ -32,17 +30,6 @@ function App() {
     localStorage.getItem("theme") || "dark"
   );
   const{startListening,stopListening}=useVoice();
-
-  // const savePlayerId = async (playerId, userId) => {
-  //   const { data, error } = await supabase
-  //     .from("users")
-  //     .update({ onesignal_player_id: playerId })
-  //     .eq("id", userId);
-
-  //   if (error) console.error("Error saving Player ID:", error);
-  //   else console.log("Player ID saved:", data);
-  // };
-
   const speakReminder = (notification) => {
     if ("speechSynthesis" in window) {
       // Stop any current speech so reminders don't overlap awkwardly
@@ -52,13 +39,11 @@ function App() {
       let textToSpeak = "";
 
       if (type === 'success') {
-        // Tone: Celebratory for task completion
+        
         textToSpeak = `Great job! ${message}`;
         //startListening();
       } else if (type === 'info' || type === 'warning') {
-        // Tone: Helpful/Alert for reminders or missed deadlines
-        // If the message already contains "You missed...", we just read it.
-        // Otherwise, we add a "Don't forget" prefix.
+        
         textToSpeak = message.toLowerCase().includes("missed") 
           ? message 
           : `Pardon the interruption. ${message}`;
@@ -159,8 +144,6 @@ function App() {
       }
 
       const playerId = await OneSignal.User.PushSubscription.id;
-
-      console.log("OneSignal Player ID:", playerId);
 
       if (playerId) {
         const{data,error}=await supabase
