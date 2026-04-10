@@ -12,10 +12,11 @@ import { useVoice } from '../../../context/VoiceContext';
 import { useNotification } from '../../../context/NotificationContext';
 import dayjs from 'dayjs';
 import { calculatePunctuality } from '../../../Hook/usePunctuality';
+import { MdHelpOutline } from 'react-icons/md';
 
 export default function TaskMenu(){
-    const{notifications}=useNotification();
-    const unreadCount = notifications.filter(n => !n.read).length;
+    const{notifications,fetchNotifications, fetchSettings, setUser}=useNotification();
+    const unreadCount = notifications.filter(n => n &&!n.read).length;
     const[name,setName]=useState("");
     const[showAddModal,setShowAddModal]=useState(false);
     const [sidebarOpen,setSidebarOpen] = useState(false);
@@ -24,7 +25,31 @@ export default function TaskMenu(){
     const navigate = useNavigate();
     const{startListening,stopListening,isListening,isSpeaking,flow,refreshSignal,speak}=useVoice();
     const [punctuality, setPunctuality] = useState(0);
+    const {setShowHelp}=useVoice();
     //const{isListening,isUserSpeaking} = useVoice();
+
+    const initializeUserData = async () => {
+        const { data: { user: activeUser } } = await supabase.auth.getUser();
+        
+        if (activeUser) {
+            
+            setUser(activeUser); 
+            
+            fetchNotifications(activeUser);
+            fetchSettings(activeUser);
+            
+            const { data } = await supabase
+                .from('users')
+                .select("name")
+                .eq("id", activeUser.id)
+                .single();
+            if (data) setName(data.name);
+        }
+    };
+
+    useEffect(() => {
+        initializeUserData();
+    }, []);
 
     const fetchPunctuality = async () => {
         const { data: userData } = await supabase.auth.getUser();
@@ -57,23 +82,23 @@ export default function TaskMenu(){
       );
     };
 
-    const getUser = async () => {
-            const{data:userData}=await supabase.auth.getUser();
-            const userId=userData.user.id;
-            const{data,error}=await supabase
-                .from('users')
-                .select("*")
-                .eq("id",userId)
-                .single();
-            if(error){
-                toast(error.message);
-            }
-            setName(data.name);
-    }
+    // const getUser = async () => {
+    //         const{data:userData}=await supabase.auth.getUser();
+    //         const userId=userData.user.id;
+    //         const{data,error}=await supabase
+    //             .from('users')
+    //             .select("*")
+    //             .eq("id",userId)
+    //             .single();
+    //         if(error){
+    //             toast(error.message);
+    //         }
+    //         setName(data.name);
+    // }
 
-    useEffect(()=>{
-        getUser();
-    },[]);
+    // useEffect(()=>{
+    //     getUser();
+    // },[]);
 
 
     const getNavClass=({isActive})=> isActive ? 'menu-active' : 'menu';
@@ -139,6 +164,7 @@ export default function TaskMenu(){
                         </div>
                         <div className='metrics-class'>
                             <div className="header-metrics">
+
                                 <div className="date-display">
                                     <span className="today-text">{dayjs().format('dddd, DD MMMM')}</span>
                                 </div>
@@ -182,7 +208,16 @@ export default function TaskMenu(){
                             <button onClick={toggleTheme} className="theme-btn">
                                 {theme === "dark" ? "🌙" : "☀️"}
                             </button>
+
+                            <button 
+                                className="guide-btn" 
+                                onClick={() => setShowHelp(true)}
+                            >
+                                <MdHelpOutline className='guide-icon' />
+                                <span>Voice Guide</span>
+                            </button>
                         </div>
+                        
                     </div>
                     
                 </div>

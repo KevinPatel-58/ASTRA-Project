@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react';
 import { supabase } from "../../util/supabase";
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 function App() {
   const[user,setUser]=useState({name:"",email:"",password:"",assistant_name:"",voice:""});
   const[error,setError]=useState({});
   const navigate=useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   // const[data,setData]=useState([]);
   
   const Validation = () => {
@@ -91,6 +93,11 @@ function App() {
     setUser({...user,[name]:value});
     setError({...error,[name]:""})
   }
+
+  const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
+  };
+
   return (
     <div className="app">
       <h1>Sign Up</h1>
@@ -110,7 +117,12 @@ function App() {
         
         <div className='password-input'>
           <label htmlFor='password'>Password: </label>
-          <input type='password' name='password' value={user.password} onChange={(e)=>handleOnChange(e)} className='input-field' />
+          <div className='password-wrapper'>
+            <input type={showPassword ? 'text' : 'password'} name='password' value={user.password} onChange={(e)=>handleOnChange(e)} className='input-field' />
+            <span onClick={togglePasswordVisibility} className='password-toggle-icon'>
+                {showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />}
+            </span>
+          </div>
         </div>
         <p className='error'>{error.password}</p>
         

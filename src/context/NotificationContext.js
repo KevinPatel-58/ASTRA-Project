@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { supabase } from "../util/supabase";
 
 const NotificationContext = createContext();
@@ -7,32 +6,50 @@ export const useNotification = () => useContext(NotificationContext);
 
 export default function NotificationProvider({ children }) {
   const [notifications, setNotifications] = useState([]);
-  const [settings, setSettings] = useState(null);
+  const [settings, setSettings] = useState({
+    enable_reminder: true,
+    default_time: 5,
+    due_alerts: true,
+    completion_updates: true,
+    show_subtitles: true
+  });
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-    });
-  }, []);
+  // const fetchUser = async () => {
+  //   const { data } = await supabase.auth.getUser();
+  //   setUser(data.user);
+  //   console.log("Current User:", data.user);
+  // };
 
-  const fetchNotifications = async () => {
+  // useEffect(() => {
+  //   // supabase.auth.getUser().then(({ data }) => {
+  //   //   setUser(data.user);
+  //   //   console.log("Current User:", data.user);
+  //   // });
+  //   fetchUser();
+  //   // const{data:userData}=await supabase.auth.getUser();
+  //   // setUser(userData.user);
+    
+  // }, []);
+
+  const fetchNotifications = async (currentUser) => {
+    if(!currentUser) return;
     const { data } = await supabase
       .from("notifications")
       .select("*")
+      .eq("user_id", currentUser.id)
       .order("created_at", { ascending: false });
 
     setNotifications(data || []);
   };
 
-  const fetchSettings = async () => {
-    if (!user) return;
+  const fetchSettings = async (currentUser) => {
+    if (!currentUser) return;
 
-    // 1. Try to get existing settings
     const { data, error } = await supabase
       .from("notification_settings")
       .select("*")
-      .eq("user_id", user.id)
+      .eq("user_id", currentUser.id)
       .maybeSingle();
 
     if (error) {
@@ -40,15 +57,14 @@ export default function NotificationProvider({ children }) {
       return;
     }
 
-    // 2. If table is empty (data is null), create the row!
     if (!data) {
       
       const defaultSettings = {
-        user_id: user.id,
-        show_subtitles: true,      // Default ON
-        enable_reminder: true,     // Default ON
-        due_alerts: true,          // Default ON
-        completion_updates: true    // Default ON
+        user_id: currentUser.id,
+        show_subtitles: true,      
+        enable_reminder: true,      
+        due_alerts: true,          
+        completion_updates: true    
       };
 
       const { data: newRow, error: insertError } = await supabase
@@ -74,7 +90,7 @@ export default function NotificationProvider({ children }) {
   }, [user]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
 
     const channel = supabase
         .channel("notifications-realtime")
@@ -96,27 +112,28 @@ export default function NotificationProvider({ children }) {
                 return [payload.new, ...prev];
               });
 
-              toast(payload.new.message, {
-                toastId: payload.new.id,
-                type: payload.new.type || "info",
-              });
-            
+              // toast(payload.new.message, {
+              //   toastId: payload.new.id,
+              //   type: payload.new.type || "info",
+              // });
             }
 
             if (payload.eventType === "UPDATE") {
-            setNotifications((prev) =>
-                prev.map((n) =>
-                n.id === payload.new.id ? payload.new : n
-                )
-            );
+              setNotifications((prev) =>
+                  prev.map((n) =>
+                  n.id === payload.new.id ? payload.new : n
+                  )
+              );
+             
             }
 
             if (payload.eventType === "DELETE") {
-            setNotifications((prev) =>
-                prev.filter((n) => n.id !== payload.old.id)
-            );
+              setNotifications((prev) =>
+                  prev.filter((n) => n.id !== payload.old.id)
+              );
+            
             }
-        }
+          }
         )
         .subscribe();
 
@@ -193,7 +210,7 @@ export default function NotificationProvider({ children }) {
         if (type === 'warning' && settings?.due_alerts === false) return;
     }
 
-    const { error } = await supabase
+    const { data,error } = await supabase
                       .from("notifications")
                       .upsert([
                         {
@@ -203,8 +220,13 @@ export default function NotificationProvider({ children }) {
                           message: message,
                           read: false,
                         }
-                      ], { onConflict: "task_id, message" });
+                      ], { onConflict: "task_id, message" })
+                      .select()   
+                      .single();
     if (error) console.error("Notification Upsert Error:", error.message);
+    else setNotifications(prev => {
+        if (prev.some(n => n?.id === data.id)) return prev;
+        return [data, ...prev];});
   };
 
   const removeNotification = async (taskId, type) => {
@@ -223,7 +245,7 @@ export default function NotificationProvider({ children }) {
     }
   };
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = notifications.filter(n => n && !n.read).length;
 
   return (
     <NotificationContext.Provider
@@ -232,6 +254,9 @@ export default function NotificationProvider({ children }) {
         settings,
         createNotification,
         removeNotification,
+        setUser, 
+        fetchNotifications, 
+        fetchSettings,
         updateSettings,
         markAllRead,
         clearAll,

@@ -8,6 +8,7 @@ import BarGraph from "./Graphs/BarGraph";
 import { TfiStatsDown, TfiStatsUp } from "react-icons/tfi";
 import { useVoice } from "../../../../../context/VoiceContext";
 import { calculatePunctuality, usePunctuality } from "../../../../../Hook/usePunctuality";
+import ReportSkeleton from "../../../../../Components/ReportSkeleton";
 
 export default function Reports() {
   const {viewMode, setViewMode,refreshSignal} = useVoice();
@@ -119,7 +120,8 @@ export default function Reports() {
       .from("tasks")
       .select("*")
       .eq("user_id", user.id)
-      .or(`due_date.gte.${startRange.toISOString()},actual_completed_at.gte.${startRange.toISOString()},status.eq.To-Do`);
+      .or(`due_date.gte.${startRange.toISOString()},actual_completed_at.gte.${startRange.toISOString()},status.eq.To-Do`)
+      .lte("due_date", endRange.toISOString());
 
     if (error) {
       console.error(error);
@@ -322,7 +324,7 @@ export default function Reports() {
   return (
     <div className="reports">
       <div>
-        <p className="greet">Reports & Analytics</p>
+        <p className="greet">Reports & Analysis</p>
         <p className="info">Insights into your productivity trends</p>
       </div>
 
@@ -342,7 +344,7 @@ export default function Reports() {
       </div>
 
       {loading ? (
-        <p>Loading...</p>
+        <ReportSkeleton />
       ) : (
         <div className="card">
           <div className="card-container">

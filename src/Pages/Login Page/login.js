@@ -3,10 +3,12 @@ import '../Sign up Page/Signup.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from "../../util/supabase";
 import { toast } from 'react-toastify';
+import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 
 export default function Login(){
     const[user,setUser]=useState({email:"",password:""});
     const[error,setError]=useState({});
+    const [showPassword, setShowPassword] = useState(false);
     const navigate=useNavigate();
 
     const Validation = () => {
@@ -72,6 +74,11 @@ export default function Login(){
         setUser({...user,[name]:value});
         setError({...error,[name]:""})
     }
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return(
         <div className='app'>
            
@@ -86,7 +93,12 @@ export default function Login(){
                 
                 <div className='password-input'>
                     <label htmlFor='password'>Password: </label>
-                    <input type='password' name='password' value={user.password} onChange={(e)=>handleOnChange(e)} className='input-field' />
+                    <div className='password-wrapper'>
+                    <input type={showPassword ? 'text' : 'password'} name='password' value={user.password} onChange={(e)=>handleOnChange(e)} className='input-field' />
+                    <span onClick={togglePasswordVisibility} className='password-toggle-icon'>
+                        {showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />}
+                    </span>
+                    </div>
                 </div>
                 <p className='error'>{error.password}</p>
                 

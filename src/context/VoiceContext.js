@@ -655,7 +655,7 @@ export const VoiceProvider = ({ children }) => {
   };
 
   return (
-    <VoiceContext.Provider value={{ startListening,stopListening,isListening, speak,voiceTaskData,setVoiceTaskData, flow,viewMode, setViewMode, refreshSignal, triggerRefresh,isSpeaking,currentStep:stepRef.current,assistantSubtitle,setAssistantSubtitle,userSubtitle,setUserSubtitle,theme, setTheme }}>
+    <VoiceContext.Provider value={{ startListening,stopListening,isListening, speak,voiceTaskData,setVoiceTaskData, flow,viewMode, setViewMode, refreshSignal, triggerRefresh,isSpeaking,currentStep:stepRef.current,assistantSubtitle,setAssistantSubtitle,userSubtitle,setUserSubtitle,theme, setTheme,setShowHelp }}>
       {children}
 
       {/* --- HELP MENU OVERLAY --- */}

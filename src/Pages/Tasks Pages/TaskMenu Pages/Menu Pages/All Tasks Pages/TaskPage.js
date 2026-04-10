@@ -128,7 +128,10 @@ export default function Tasks() {
                 //await createNotification('success',`You completed the task: ${task.title}`,task.id);
             } else if (now.isAfter(due)) {
                 newStatus = "Missed";
-                await createNotification('info', `You missed the deadline for: ${task.title}`, task.id);
+                //await createNotification('info', `You missed the deadline for: ${task.title}`, task.id);
+                // if (task.status !== "Missed") {
+                //     await createNotification('info', `You missed the deadline for: ${task.title}`, task.id);
+                // }
             } else {
                 newStatus = "To Do";
                 await removeNotification(task.id,'warning');

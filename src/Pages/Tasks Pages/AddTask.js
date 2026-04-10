@@ -285,71 +285,71 @@ export default function AddTask({modalMode=false, onClose, mode="add", taskData=
                         }
                     }}>
                     <div className='field-wrapper'>
-                    <label htmlFor='title'>Task Title: {flow === 'addTask' && currentStep === 1 && isSpeaking && <VoiceIndicator />} </label>
-                    <input type='text' name='title' value={task.title} className={`input-field ${flow === 'addTask' && currentStep === 1 ? 'voice-active' : ''}`} onChange={(e)=>handleOnChange(e)} />
-                    <p className='error'>{error.title}</p>
+                        <label htmlFor='title'>Task Title: {flow === 'addTask' && currentStep === 1 && isSpeaking && <VoiceIndicator />} </label>
+                        <input type='text' name='title' value={task.title} className={`input-field ${flow === 'addTask' && currentStep === 1 ? 'voice-active' : ''}`} onChange={(e)=>handleOnChange(e)} />
+                        <p className='error'>{error.title}</p>
 
-                    <label htmlFor='category'>Category: {flow === 'addTask' && currentStep === 2 && isSpeaking && <VoiceIndicator />}</label>
-                    <select name='category' ref={categoryRef} value={task.category} className={`input-field native-select ${flow === 'addTask' && currentStep === 2 ? 'voice-active' : ''}`} onChange={(e)=>handleOnChange(e)} size={(currentStep === 2 && isSpeaking) ? 3 : 1} >
-                        <option value=''>Select the Category</option>
-                        <option value="work">Work</option>
-                        <option value='health'>Health</option>
-                        <option value='personal'>Personal</option>
-                        <option value='study'>Study</option>
-                        <option value='finance'>Finance</option>
-                    </select> 
-                    <p className='error'>{error.category}</p>
+                        <label htmlFor='category'>Category: {flow === 'addTask' && currentStep === 2 && isSpeaking && <VoiceIndicator />}</label>
+                        <select name='category' ref={categoryRef} value={task.category} className={`input-field native-select ${flow === 'addTask' && currentStep === 2 ? 'voice-active' : ''}`} onChange={(e)=>handleOnChange(e)} size={(currentStep === 2 && isSpeaking) ? 3 : 1} >
+                            <option value=''>Select the Category</option>
+                            <option value="work">Work</option>
+                            <option value='health'>Health</option>
+                            <option value='personal'>Personal</option>
+                            <option value='study'>Study</option>
+                            <option value='finance'>Finance</option>
+                        </select> 
+                        <p className='error'>{error.category}</p>
 
-                    {view==='full' && (
-                        <>
-                            <label htmlFor='description'>Description: {flow === 'addTask' && currentStep === 3 && isSpeaking && <VoiceIndicator />}</label>
-                            <div className={`sun-wrapper ${flow === 'addTask' && currentStep === 3 ? 'voice-active' : ''}`}>
-                                <SunEditor 
-                                    setContents={task.description} 
-                                    onChange={handleDescriptionChange}
-                                    setOptions={{
-                                        plugins: plugins,
-                                        height: 200,
-                                        maxWidth:580,
-                                        popupDisplay:'local',
-                                        buttonList: [
-                                            ['undo', 'redo'],
-                                            ['font', 'fontSize', 'formatBlock'],
-                                            ['paragraphStyle', 'blockquote'],
-                                            ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-                                            ['fontColor', 'hiliteColor'],
-                                            ['list', 'align', 'link', 'table']
-                                        ]
-                                    }}
+                        {view==='full' && (
+                            <>
+                                <label htmlFor='description'>Description: {flow === 'addTask' && currentStep === 3 && isSpeaking && <VoiceIndicator />}</label>
+                                <div className={`sun-wrapper ${flow === 'addTask' && currentStep === 3 ? 'voice-active' : ''}`}>
+                                    <SunEditor 
+                                        setContents={task.description} 
+                                        onChange={handleDescriptionChange}
+                                        setOptions={{
+                                            plugins: plugins,
+                                            height: 200,
+                                            maxWidth:'90%',
+                                            popupDisplay:'local',
+                                            buttonList: [
+                                                ['undo', 'redo'],
+                                                ['font', 'fontSize', 'formatBlock'],
+                                                ['paragraphStyle', 'blockquote'],
+                                                ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                                                ['fontColor', 'hiliteColor'],
+                                                ['list', 'align', 'link', 'table']
+                                            ]
+                                        }}
+                                    />
+                                </div> 
+                                <p className='error'>{error.description}</p>
+                                
+                                <label>Due Date & Time: {flow === 'addTask' && currentStep === 4 && isSpeaking && <VoiceIndicator />}</label>
+                                <DatePicker
+                                    selected={startDate}
+                                    onChange={handleDateChange}
+                                    showTimeSelect
+                                    timeFormat="hh:mm"
+                                    timeIntervals={15}
+                                    dateFormat="MMMM d, yyyy h:mm aa"
+                                    className={`input-field ${flow === 'addTask' && currentStep === 4 ? 'voice-active' : ''}`}
                                 />
-                            </div> 
-                            <p className='error'>{error.description}</p>
-                            
-                            <label>Due Date & Time: {flow === 'addTask' && currentStep === 4 && isSpeaking && <VoiceIndicator />}</label>
-                            <DatePicker
-                                selected={startDate}
-                                onChange={handleDateChange}
-                                showTimeSelect
-                                timeFormat="hh:mm"
-                                timeIntervals={15}
-                                dateFormat="MMMM d, yyyy h:mm aa"
-                                className={`input-field ${flow === 'addTask' && currentStep === 4 ? 'voice-active' : ''}`}
-                            />
-                            <p className='error'>{error.due_datetime}</p>
-                            
-                            <label htmlFor='reminder'>Reminder Time: {flow === 'addTask' && currentStep === 5 && isSpeaking && <VoiceIndicator />}</label>
-                            <input type='time' name='reminder_time' value={task.reminder_time} className={`input-field ${flow === 'addTask' && currentStep === 5 ? 'voice-active' : ''}`} onChange={(e)=>handleOnChange(e)}></input>
-                            <p className='error'>{error.reminder_time}</p>
-                        </>
-                    )}
-                    
-                    <button className={`save-btn ${currentStep === 6 && !voiceTaskData.confirmed ? 'glow-save' : ''}`} type='submit'>Save Task</button>
+                                <p className='error'>{error.due_datetime}</p>
+                                
+                                <label htmlFor='reminder'>Reminder Time: {flow === 'addTask' && currentStep === 5 && isSpeaking && <VoiceIndicator />}</label>
+                                <input type='time' name='reminder_time' value={task.reminder_time} className={`input-field ${flow === 'addTask' && currentStep === 5 ? 'voice-active' : ''}`} onChange={(e)=>handleOnChange(e)}></input>
+                                <p className='error'>{error.reminder_time}</p>
+                            </>
+                        )}
+                        
+                        <button className={`save-btn ${currentStep === 6 && !voiceTaskData.confirmed ? 'glow-save' : ''}`} type='submit'>Save Task</button>
 
-                    {modalMode && (
-                        
-                        <button className={'back-btn'} type='button' onClick={back}>Cancel</button>
-                        
-                    )}
+                        {modalMode && (
+                            
+                            <button className={'back-btn'} type='button' onClick={back}>Cancel</button>
+                            
+                        )}
                     </div>
                 </form>
             </div>  

@@ -4,6 +4,38 @@
 .home {
   @include all-menu-pages();
 
+  .guide-onboarding-tip {
+    margin-right: 20px;
+    background: rgba(79, 91, 213, 0.15);
+    border: 1px solid #4F5BD5;
+    color: var(--text-color);
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.5s ease-in;
+
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    button {
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-color);
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
   .hero {
     display: flex;
     justify-content: space-between;
@@ -29,15 +61,39 @@
           transform-origin: 70% 70%; // makes rotation look natural
           animation: waveHand 1.8s ease-in-out infinite;
         }
+
         @keyframes waveHand {
-          0% { transform: rotate(0deg); }
-          10% { transform: rotate(14deg); }
-          20% { transform: rotate(-8deg); }
-          30% { transform: rotate(14deg); }
-          40% { transform: rotate(-4deg); }
-          50% { transform: rotate(10deg); }
-          60% { transform: rotate(0deg); }
-          100% { transform: rotate(0deg); }
+          0% {
+            transform: rotate(0deg);
+          }
+
+          10% {
+            transform: rotate(14deg);
+          }
+
+          20% {
+            transform: rotate(-8deg);
+          }
+
+          30% {
+            transform: rotate(14deg);
+          }
+
+          40% {
+            transform: rotate(-4deg);
+          }
+
+          50% {
+            transform: rotate(10deg);
+          }
+
+          60% {
+            transform: rotate(0deg);
+          }
+
+          100% {
+            transform: rotate(0deg);
+          }
         }
       }
 
@@ -56,15 +112,16 @@
         }
 
         @keyframes dropFade {
-        from {
-          opacity: 0;
-          transform: translateY(-15px);
+          from {
+            opacity: 0;
+            transform: translateY(-15px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
       }
     }
 
@@ -73,6 +130,7 @@
         opacity: 0;
         transform: translateX(-30px);
       }
+
       to {
         opacity: 1;
         transform: translateX(0);
@@ -84,7 +142,7 @@
       gap: 20px;
 
       .stat {
-        background: rgba(255,255,255,0.05);
+        background: rgba(255, 255, 255, 0.05);
         padding: 12px 18px;
         border-radius: 10px;
         text-align: center;
@@ -109,7 +167,7 @@
     //padding: 0 20px;
     padding-right: 20px;
     padding-bottom: 30px;
-    
+
 
     .tasks-section {
       background: var(--card);
@@ -122,19 +180,19 @@
         margin-bottom: 15px;
       }
 
-      p{
+      p {
         color: var(--subtext);
       }
 
       .task-card {
-        background: rgba(255,255,255,0.04);
+        background: rgba(255, 255, 255, 0.04);
         padding-bottom: 20px;
         padding-left: 15px;
         border-radius: 8px;
         margin-bottom: 10px;
         display: flex;
         cursor: pointer;
-        
+
         justify-content: space-between;
         transition: $transition-slow;
 
@@ -167,13 +225,13 @@
         border: 1px solid var(--border);
         text-align: center;
 
-        .icon{
+        .icon {
           background: #4F5BD5;
           padding: 20px;
           border-radius: 50%;
           font-size: 30px;
           color: white;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
           cursor: pointer;
           transition: $transition-slow;
 
@@ -190,6 +248,58 @@
       }
     }
   }
+
+  // Add this to the bottom or top of Home.scss
+  .skeleton {
+    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0.05) 25%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  // Specific skeleton shapes
+  .skeleton-title {
+    height: 32px;
+    width: 60%;
+    margin-bottom: 10px;
+  }
+
+  .skeleton-text {
+    height: 18px;
+    width: 40%;
+  }
+
+  .skeleton-stat {
+    height: 60px;
+    width: 80px;
+  }
+
+  .skeleton-card {
+    height: 80px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .skeleton-circle {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -204,10 +314,11 @@
       align-items: flex-start;
       gap: 10px;
 
-      .theme{
-        
+      .theme {
+
         width: 100%;
-        .theme-btn{
+
+        .theme-btn {
           margin-top: 20px;
           display: flex;
           justify-self: center;
@@ -229,6 +340,7 @@
       align-items: flex-start;
       gap: 15px;
     }
+
     .icon {
       padding: 14px;
       font-size: 42px;

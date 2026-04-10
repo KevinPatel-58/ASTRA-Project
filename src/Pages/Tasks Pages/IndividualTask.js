@@ -156,6 +156,10 @@ export default function IndividualTask(){
             }
     }
 
+    const stripHtml = (html) => {
+        return html?.replace(/<[^>]*>?/gm, '') || "";
+    };
+
     return(
         <div className="individual">
             <div className='header'>
@@ -196,7 +200,7 @@ export default function IndividualTask(){
                                 </div>
                                 <div className='above'>
                                     <p className='desc'>DESCRIPTION</p>
-                                    <p className='describe'>{task.description}</p>
+                                    <p className='describe'>{stripHtml(task.description)}</p>
                                 </div>
                                 <div className='horizontal-zone'>
                                     <div className='first-row'>

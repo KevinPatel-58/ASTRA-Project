@@ -39,7 +39,7 @@
     background: transparent;
 
     .container {
-        width: 100%;
+        width: 60%;
         justify-self: center;
         margin-top: 30px;
         border-radius: 7px;
@@ -168,7 +168,7 @@
     .background {
         .container {
             flex-direction: column;
-            width: 100%;
+            width: 70%;
 
             .save-btn {
                 @include button-style(blue);
@@ -180,6 +180,15 @@
                 margin-left: 0;
                 margin-top: 20px;
             }
+        }
+    }
+}
+
+@media(max-width:720px) {
+    .background {
+        .container {
+            flex-direction: column;
+            width: 80%;
         }
     }
 }

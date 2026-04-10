@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import { useVoice } from "../../context/VoiceContext";
 import Dashboard from "../Tasks Pages/TaskMenu Pages/Menu Pages/Dashboard Pages/Dashboard";
+import HomeSkeleton from "../../Components/HomeSkeleton";
 
 export default function Home(){
     const[profile,setProfile]=useState(null);
@@ -15,6 +16,8 @@ export default function Home(){
     const [tasks, setTasks] = useState([]);
     const{startListening}=useVoice();
     // const [notifiedTasks, setNotifiedTasks] = useState({});
+    const [showGuideTip, setShowGuideTip] = useState(false);
+
 
     const fetchTasks = async () => {
 
@@ -97,15 +100,37 @@ export default function Home(){
       window.speechSynthesis.speak(message);
     }
 
+    useEffect(() => {
+      const hasSeen = localStorage.getItem("astra_guide_seen");
+      if (!hasSeen) {
+        setShowGuideTip(true);
+      }
+    }, []);
+
+    const handleDismissTip = () => {
+      setShowGuideTip(false);
+      localStorage.setItem("astra_guide_seen", "true");
+    };
+
     return (
       <div className="home">
         {!profile ? (
           <div>
-            <p>Loading...</p>
+            <HomeSkeleton />
             
           </div>
         ) : (
           <div>
+            {showGuideTip && (
+              <div className="guide-onboarding-tip">
+                <p>
+                  ✨ <strong>New here?</strong> Click the 
+                  <span> Voice Guide </span> 
+                  to see how your assistant works.
+                </p>
+                <button onClick={handleDismissTip}>&times;</button>
+              </div>
+            )}
             <div className="hero">
               <div className="hero-text">
                 <h1>Welcome back, {profile.name} <span className="wave">👋</span> </h1>

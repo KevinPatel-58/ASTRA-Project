@@ -41,17 +41,20 @@ function App() {
       if (type === 'success') {
         
         textToSpeak = `Great job! ${message}`;
+        toast.success(message);
         //startListening();
       } else if (type === 'info' || type === 'warning') {
         
         textToSpeak = message.toLowerCase().includes("missed") 
           ? message 
           : `Pardon the interruption. ${message}`;
+        toast.info(message);
 
         //startListening();
       } else {
         // Fallback for generic messages
         textToSpeak = message;
+        toast(message);
         //startListening();
       }
 
