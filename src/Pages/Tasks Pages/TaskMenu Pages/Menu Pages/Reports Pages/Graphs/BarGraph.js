@@ -24,7 +24,7 @@ export default function BarGraph({ data,view }) {
         <Tooltip cursor={{ fill: '#c4c4fd75', radius: [6, 6, 0, 0] }} />
         <Legend />
 
-        <Bar dataKey="Completed" fill="#4F5BD5" radius={barRadius} barSize={70} /> 
+        <Bar dataKey="Completed" fill="#40c346" radius={barRadius} barSize={70} /> 
         <Bar dataKey="To Do" fill="#FFC107" radius={barRadius} barSize={70} /> 
         <Bar dataKey="Missed" fill="#FF4D4F" radius={barRadius} barSize={70} /> 
       </BarChart>

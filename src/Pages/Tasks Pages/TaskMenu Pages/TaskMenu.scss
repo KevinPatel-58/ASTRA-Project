@@ -11,20 +11,21 @@
         width: 15%;
         height: 100%;
         background: var(--bg);
-        border-right: 1px solid var(--border);
+        border-right: 2px solid fuchsia;
 
         .title {
             @include all-title();
-            padding-top: 14px;
+            padding: 9px 25px;
             color: var(--text);
+            //justify-self: center;
         }
 
         .vertical-nav {
             height: 450px;
-            margin-top: 25px;
-            padding-top: 16px;
-            padding: 50px 12px;
+            //margin-top: 25px;
+            padding: 40px 12px;
             border-top: 1px solid var(--border);
+            font-weight: 500;
 
             .menu {
                 display: flex;
@@ -38,8 +39,10 @@
                 transition: $transition-normal;
 
                 &:hover {
-                    background-color: hotpink;
-                    color: white;
+                    // background-color: hotpink;
+                    // color: white;
+                    background-color: rgba(233, 54, 221, 0.12);
+                    color: fuchsia;
                 }
 
                 .lu-icon {
@@ -50,9 +53,9 @@
                 .unread-count {
                     border: 1px solid transparent;
                     background: rgb(237, 69, 69);
-                    border-radius: 20px;
-                    padding-right: 10px;
-                    padding-left: 10px;
+                    border-radius: 15px;
+                    padding-right: 7px;
+                    padding-left: 7px;
                     padding-bottom: 2px;
                     margin-left: 30px;
                     color: white;
@@ -61,15 +64,18 @@
 
             .menu-active {
                 @extend .menu;
-                background-color: #4f46e5;
-                color: white;
+                // background-color: #4f46e5;
+                // color: white;
+                background-color: rgba(233, 54, 221, 0.12);
+                color: fuchsia;
+                
             }
         }
 
         .user-bar {
             height: 85px;
-            padding: 14px;
-            border-width: 32%;
+            padding: 16px;
+            //border-width: 32%;
             border-top: 1px solid var(--border);
             font-size: large;
             font-weight: bold;
@@ -78,6 +84,7 @@
             .u-info {
                 display: flex;
                 align-items: center;
+                padding: 8px 12px;
 
                 .user {
                     font-size: 40px;
@@ -86,7 +93,8 @@
                     transition: $transition-slow;
 
                     &:hover {
-                        color: #60a5fa;
+                        //color: #60a5fa;
+                        color: fuchsia;
                         transform: scale(1.2);
                     }
                 }
@@ -111,6 +119,7 @@
                 font-size: medium;
                 font-weight: 400;
                 color: $danger;
+                padding: 10px 25px;
 
                 &:hover {
                     //background-color: rgb(249, 227, 227);
@@ -134,9 +143,9 @@
             align-content: center;
             display: flex;
             //justify-content: space-between;
-            height: 64px;
+            height: 66.5px;
             width: 100%;
-            border-bottom: 6px solid var(--border);
+            border-bottom: 1px solid fuchsia;
         
             background: var(--bg);
             color: var(--text);
@@ -340,10 +349,10 @@
         }
 
         .area {
-            height: 90.5%;
+            height: 90.8%;
             background: var(--bg);
-            overflow-y: auto;          // Allow vertical scrolling
-            scroll-behavior: smooth;   // Makes voice scrolling look professional
+            overflow-y: auto;          
+            scroll-behavior: smooth;   
             position: relative;
         }
     }
@@ -381,12 +390,11 @@
             z-index: 1000;
             transition: 0.3s;
             background: var(--bg);
-        }
 
-        /* when sidebar opens */
-        .aside.active {
-            left: 0;
-            overflow-y: scroll;
+            &.active {
+                left: 0;
+                //overflow-y: scroll;
+            }
         }
 
         /* blur main content when sidebar is open */
@@ -469,7 +477,7 @@
     }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 800px) {
 
     .task-page {
         width: 100%;
@@ -482,15 +490,16 @@
             left: -100%;
             width: 260px;
             height: 100vh;
-            z-index: 1000;
             transition: 0.3s;
             background: var(--bg);
-        }
+            &.active {
+                left: 0;
+                //overflow-y: scroll;
 
-        /* when sidebar opens */
-        .aside.active {
-            left: 0;
-            overflow-y: scroll;
+                .vertical-nav{
+                    height: 500px;
+                }
+            }
         }
 
         /* blur main content when sidebar is open */

@@ -11,7 +11,7 @@ import {
 export default function DashboardGraph({data}) {
   return (
     <div className="graph-card">
-      <h3>Weekly Productivity</h3>
+      <h3>Weekly Tasks Completion</h3>
       <ResponsiveContainer width="95%" height={280}>
         <LineChart data={data} margin={{top: 5, right: 5, left: -20, bottom: 5}}>
           <CartesianGrid strokeDasharray="3 3" />

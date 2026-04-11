@@ -17,8 +17,8 @@ export default function Auth({children}){
         }
         checkUser();
     },[]);
-    if(loading){
-        return <p>Please Wait....</p>
-    }
+    // if(loading){
+    //     return <p>Please Wait....</p>
+    // }
     return children;
 }

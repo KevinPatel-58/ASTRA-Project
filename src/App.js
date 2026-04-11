@@ -27,7 +27,7 @@ import NotificationProvider from "./context/NotificationContext";
 function App() {
   const location=useLocation();
   const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "dark"
+    localStorage.getItem("theme") || "light"
   );
   const{startListening,stopListening}=useVoice();
   const speakReminder = (notification) => {
@@ -173,11 +173,10 @@ function App() {
     ];
 
     if (authRoutes.includes(location.pathname)) {
-      // Force LIGHT theme for auth pages
       document.body.className="light";
     } else {
       // Apply saved theme everywhere else
-      const savedTheme = localStorage.getItem("theme") || "dark";
+      const savedTheme = localStorage.getItem("theme") || "light";
       document.body.className=savedTheme;
     }
   }, [location.pathname]);

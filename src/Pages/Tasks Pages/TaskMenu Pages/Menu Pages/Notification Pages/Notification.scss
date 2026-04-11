@@ -3,6 +3,7 @@
 
 .notification {
   @include all-menu-pages();
+  
   margin-bottom: 20px;
   .not-head {
     display: flex;

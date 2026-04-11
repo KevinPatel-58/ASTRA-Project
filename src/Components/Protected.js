@@ -21,8 +21,8 @@ export default function Protected({children}){
         }
         checkUser();
     },[]);
-    if(loading){
-        return <p>Please wait...</p>
-    }
+    // if(loading){
+    //     return <p>Please wait...</p>
+    // }
     return user ? children : null;
 }
