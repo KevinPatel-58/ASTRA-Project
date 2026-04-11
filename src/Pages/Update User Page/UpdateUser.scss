@@ -50,12 +50,44 @@
       @include input-style();
 
       .selector-field {
-        box-sizing: border-box;
-        border-radius: 3px;
-        height: 35px;
+        
+        height: 40px;
         max-width: 265px;
         width: 21.1%;
-        margin-left: 23px;
+        margin-left: 16px;
+  
+        .update-select__control {
+          border: 1px solid #d3deee;
+          border-radius: 8px;
+          cursor: pointer;
+
+          &--is-focused {
+            outline: none;
+            border-color: $accent;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+          }
+        }
+
+        .update-select__menu {
+          background-color: #1935605f;
+
+        }
+
+        .update-select__option {
+          background-color: transparent;
+          color: white;
+          cursor: pointer;
+
+          &--is-focused {
+            background-color: #1935605f;
+          }
+
+          &--is-selected {
+            background: var(--card);
+            color: var(--subtext);
+          }
+
+        }
       }
     }
 
@@ -91,8 +123,11 @@
         margin-left: 0;
         justify-content: center;
 
-        .input-field,.selector-field{
+        .input-field{
           width: 50%;
+        }
+        .selector-field{
+          width: 53%;
         }
       }
 

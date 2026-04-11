@@ -10,7 +10,7 @@
   overflow-x: hidden;
 
   .grid {
-    @include grid-style(linear-gradient(135deg,rgba(255, 255, 255, 0.85),rgba(241, 245, 255, 0.75)));
+    @include grid-style(linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(241, 245, 255, 0.75)));
     backdrop-filter: blur(10px);
     box-shadow: 0 0 20px rgba(156, 154, 154, 0.3);
     justify-self: center;
@@ -37,7 +37,7 @@
       @include input-style();
 
       .password-wrapper {
-        position: relative; 
+        position: relative;
         display: flex;
         align-items: center;
         margin-left: 7px;
@@ -45,7 +45,7 @@
         .input-field {
           @include fields();
           width: 100%;
-          padding-right: 40px; 
+          padding-right: 40px;
         }
 
         .password-toggle-icon {
@@ -84,20 +84,53 @@
       @include input-style();
 
       .selector-field {
-        box-sizing: border-box;
-        border-radius: 3px;
+        // box-sizing: border-box;
+        // border-radius: 3px;
         height: 40px;
         max-width: 265px;
         width: 21.1%;
         margin-left: 16px;
-        border-radius: 8px;
-        border: 1px solid #d3deee;
-        transition: 0.2s;
+        // border-radius: 8px;
+        // border: 1px solid #d3deee;
+        // transition: 0.2s;
+        // cursor: pointer;
 
-        &:focus {
-          outline: none;
-          border-color: $accent;
-          box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        // &:focus {
+        //   outline: none;
+        //   border-color: $accent;
+        //   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        // }
+        .signup-select__control {
+          border: 1px solid #d3deee;
+          border-radius: 8px;
+          cursor: pointer;
+
+          &--is-focused {
+            outline: none;
+            border-color: $accent;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+          }
+        }
+
+        .signup-select__menu {
+          background-color: #1935605f;
+
+        }
+
+        .signup-select__option {
+          background-color: transparent;
+          color: white;
+          cursor: pointer;
+
+          &--is-focused {
+            background-color: #1935605f;
+          }
+
+          &--is-selected {
+            background: var(--card);
+            color: var(--subtext);
+          }
+
         }
       }
     }
@@ -135,31 +168,40 @@
   }
 }
 
-@media(max-width:1024px){
-  .app{
-    .grid{
+@media(max-width:1024px) {
+  .app {
+    .grid {
       max-width: 400px;
       width: 90%;
-      .name-input,.email-input,.password-input,.assistant-input,.input-selector{
+
+      .name-input,
+      .email-input,
+      .password-input,
+      .assistant-input,
+      .input-selector {
         width: 400px;
         width: 100%;
         margin-left: 0;
         justify-content: center;
 
-        .input-field,.selector-field{
+        .input-field {
           width: 50%;
+        }
+
+        .selector-field {
+          width: 53%;
         }
       }
 
       @media (max-width:720px) {
         .password-input {
           .password-wrapper {
-            width: 69%;      
-            margin-left: 6px;  
+            width: 69%;
+            margin-left: 6px;
             //justify-content: center;
-            
+
             .input-field {
-              width: 100%;   
+              width: 100%;
             }
           }
         }

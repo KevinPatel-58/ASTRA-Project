@@ -13,11 +13,26 @@
         background: var(--bg);
         border-right: 2px solid fuchsia;
 
-        .title {
+        // .title {
+        //     @include all-title();
+        //     //width: 15%;
+        //     padding: 9px 25px;
+        //     color: var(--text);
+        //     //justify-self: center;
+        //     cursor: pointer;
+        //     border: 1px solid black;
+        //     &.hover {
+        //         background-color: $accent;
+        //     }
+        // }
+
+        .app-title{
             @include all-title();
-            padding: 9px 25px;
-            color: var(--text);
-            //justify-self: center;
+            padding-top: 4px;
+            &:hover {
+                background-color: rgba(233, 54, 221, 0.236);
+            } 
+            
         }
 
         .vertical-nav {

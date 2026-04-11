@@ -4,6 +4,7 @@ import { supabase } from "../../util/supabase";
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
+import Select from 'react-select';
 
 function App() {
   const[user,setUser]=useState({name:"",email:"",password:"",assistant_name:"",voice:""});
@@ -11,6 +12,10 @@ function App() {
   const navigate=useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   // const[data,setData]=useState([]);
+  const voiceOptions = [
+    { value: "male", label: "Male" },
+    { value: "female", label: "Female" }
+  ];
   
   const Validation = () => {
     let isValid=true;
@@ -134,11 +139,17 @@ function App() {
       
         <div className='input-selector'>
           <label htmlFor='voice'>Assistant Voice: </label>
-          <select name='voice' value={user.voice} onChange={(e)=>handleOnChange(e)} className='selector-field'>
-            <option value="">Select Voice</option>
-            <option value='male'>Male</option>
-            <option value='female'>Female</option>
-          </select>
+          <Select
+            name="voice"
+            className="selector-field"
+            classNamePrefix="signup-select"
+            options={voiceOptions}
+            placeholder="Select Voice"
+            value={voiceOptions.find(opt => opt.value === user.voice)}
+            onChange={(opt) =>
+              setUser({ ...user, voice: opt.value })
+            }
+          />
         </div>
       
         <button className='btn' onClick={signup}>Sign Up</button>

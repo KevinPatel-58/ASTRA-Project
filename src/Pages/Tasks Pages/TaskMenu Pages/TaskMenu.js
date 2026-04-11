@@ -130,7 +130,7 @@ export default function TaskMenu(){
         <div className='task-page'>
             <div className={`aside ${sidebarOpen ? "active" : ""}`}>
                 
-                <div className='title'>
+                <div className='app-title'>
                     <img src={logo} alt='Astra Logo' className='logo' />
                     <h3>ASTRA</h3>
                 </div>

@@ -4,12 +4,17 @@ import useProfile from "../../Hook/useProfile";
 import updateProfile from "../../Services/updateProfile";
 import './UpdateUser.scss';
 import { toast} from "react-toastify";
+import Select from "react-select";
 
 export default function Update(){
     const[user,setUser]=useState({name:"",email:"",assistant_name:"",voice:""});
     const[error,setError]=useState({});
     const{profile}=useProfile();
     const navigate=useNavigate();
+    const voiceOptions = [
+        { value: "male", label: "Male" },
+        { value: "female", label: "Female" }
+    ];
 
     const Validation = () => {
         let isValid=true;
@@ -102,11 +107,17 @@ export default function Update(){
                 
                 <div className="input-selector">
                     <label htmlFor="voice">Assistant Voice: </label>
-                    <select name="voice" value={user.voice} onChange={(e)=>handleOnChange(e)} className="selector-field">
-                        <option value="">Select Voice</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
+                    <Select
+                        name="voice"
+                        className="selector-field"
+                        classNamePrefix="update-select"
+                        options={voiceOptions}
+                        placeholder="Select Voice"
+                        value={voiceOptions.find(opt => opt.value === user.voice)}
+                        onChange={(opt) =>
+                            setUser({ ...user, voice: opt.value })
+                        }
+                    />
                 </div>
                 <p className="error">{error.voice}</p>
                 

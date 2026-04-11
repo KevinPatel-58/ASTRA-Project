@@ -86,7 +86,8 @@
             border-radius: 10px;
             border: 1px solid var(--border);
             min-height: 40px;
-            background: var(--card);
+            background-color: var(--card);
+            cursor: pointer;
           }
 
           .custom-select__control--is-focused {
@@ -109,12 +110,12 @@
 
             &--is-selected {
               background: var(--card);
-
+              color: var(--subtext);
             }
           }
 
           .custom-select__placeholder {
-            color: #888;
+            color: var(--subtext);
           }
         }
       }

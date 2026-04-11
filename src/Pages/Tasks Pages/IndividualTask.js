@@ -166,7 +166,7 @@ export default function IndividualTask(){
                 <span className='flex'>
                     <div className='title'>
                         <img src={logo} alt='Astra Logo' className='logo' />
-                        <p>ASTRA</p>
+                        <h3>ASTRA</h3>
                     </div>
                 
                     <div className='links'>

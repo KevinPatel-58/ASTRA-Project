@@ -99,12 +99,13 @@
 }
 
 @mixin all-title() {
-  height: 8px;
-  width: 10%;
-  padding-left: 6px;
   display: flex;
   align-items: center;
-  //justify-content: center;
+  height: auto;
+  width: auto;
+  padding: 0 25px;
+  cursor: pointer;
+  //margin-left: 10px;
   
   .logo {
     height: 50px;
