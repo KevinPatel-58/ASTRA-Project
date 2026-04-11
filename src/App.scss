@@ -66,53 +66,53 @@ $accent-color: #6c63ff;
 }
 
 .global-voice-overlay {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999; /* Stay above everything */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 80%;
-    max-width: 600px;
-    pointer-events: none; /* Allows clicking through to buttons behind subtitles */
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; /* Stay above everything */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 80%;
+  max-width: 600px;
+  pointer-events: none; /* Allows clicking through to buttons behind subtitles */
 }
 
 .subtitle {
-    padding: 12px 20px;
-    border-radius: 25px;
-    font-size: 1rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    animation: fadeIn 0.3s ease;
-    text-align: center;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+  text-align: center;
 }
 
 .user-speech {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    border-left: 5px solid #007bff;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-left: 5px solid #007bff;
 }
 
 .assistant-speech {
-    background: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    border-left: 5px solid #28a745;
-    font-weight: 500;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  border-left: 5px solid #28a745;
+  font-weight: 500;
 }
 
 .label {
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    margin-right: 8px;
-    opacity: 0.7;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-right: 8px;
+  opacity: 0.7;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- Voice Help Menu Styles --- */
