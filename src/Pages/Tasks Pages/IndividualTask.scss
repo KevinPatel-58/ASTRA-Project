@@ -430,31 +430,33 @@
             padding-right: 10px;
             padding-bottom: 20px;
 
-            .flex{
-            flex-direction: column;
-            gap: 20px;
+            .flex {
+                flex-direction: column;
+                gap: 20px;
 
-            .title {
-                margin-bottom: 0;
-            }
+                .title {
+                    margin-bottom: 0;
+                }
 
-            .links {
-                margin-left: 0;
-                font-size: medium;
-            }
-            .user-head{
-                position: absolute;
-                margin-top: 27px;
-                justify-content:flex-start;
-                .user{
-                    margin-right: 200px;
-                    .icon{
-                        font-size:48px;
+                .links {
+                    margin-left: 0;
+                    font-size: medium;
+                }
+
+                .user-head {
+                    position: absolute;
+                    margin-top: 27px;
+                    justify-content: flex-start;
+
+                    .user {
+                        margin-right: 200px;
+
+                        .icon {
+                            font-size: 48px;
+                        }
                     }
                 }
             }
-        }
-
         }
 
         .space {
@@ -467,7 +469,6 @@
                 span {
                     font-size: smaller;
                 }
-
 
                 .task-container {
                     flex-direction: column;
