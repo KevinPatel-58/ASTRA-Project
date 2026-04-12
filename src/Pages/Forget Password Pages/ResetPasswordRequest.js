@@ -23,7 +23,7 @@ export default function ResetRequest(){
         if(!Validation()) return;
 
         const{error}=await supabase.auth.resetPasswordForEmail(user.email,
-            {redirectTo:'https://astra-project-cpqc.vercel.app/UpdatePassword'}
+            {redirectTo:'https://astra-project-topaz.vercel.app/UpdatePassword'}
         );
         if(error){
             toast(error.message);
