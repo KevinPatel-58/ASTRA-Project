@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import './TaskMenu.scss';
-import logo from '../../../assets/astra-logo.svg';
+import logo from '../../../assets/Astra.svg';
 import { supabase } from '../../../util/supabase';
-import { toast } from 'react-toastify';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import AddTask from '../AddTask';
 import { FiMenu } from 'react-icons/fi';

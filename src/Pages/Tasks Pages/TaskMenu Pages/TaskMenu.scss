@@ -13,15 +13,13 @@
         background: var(--bg);
         border-right: 2px solid fuchsia;
 
-
         .app-title{
             @include all-title();
             color: var(--subtext);
             padding-top: 4px;
             &:hover {
                 background-color: rgba(233, 54, 221, 0.236);
-            } 
-            
+            }
         }
 
         .vertical-nav {
