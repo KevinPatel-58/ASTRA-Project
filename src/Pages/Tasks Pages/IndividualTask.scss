@@ -299,11 +299,18 @@
                             }
                         }
 
-                        .reschedule-card {
+                        .remove-card {
                             @extend .complete-card;
                         }
 
-                        .reminder-card {
+                        .edit-card {
+                            @extend .complete-card;
+                        }
+
+                        .retitle-card {
+                            @extend .complete-card;
+                        }
+                        .read-card {
                             @extend .complete-card;
                         }
                     }

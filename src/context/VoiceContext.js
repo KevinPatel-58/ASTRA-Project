@@ -77,13 +77,13 @@ export const VoiceProvider = ({ children }) => {
 
   const handleScroll = (direction) => {
     const pageClasses = ['.home', '.all-tasks', '.calender', '.reports', '.notification', '.area'];
-    // We target '.area' because it's the main container for our Outlet
+    
     let scrollContainer = null;
     for (const className of pageClasses) {
       const element = document.querySelector(className);
       if (element) {
           scrollContainer = element;
-          break; // Stop once we find the top-most active container
+          break; 
       }
     }
     const scrollAmount = 500;
@@ -95,7 +95,6 @@ export const VoiceProvider = ({ children }) => {
             behavior: 'smooth'
         });
     } else {
-        // Fallback for pages that might not be inside TaskMenu (like Landing/Login)
         window.scrollBy({
             top: distance,
             behavior: 'smooth'

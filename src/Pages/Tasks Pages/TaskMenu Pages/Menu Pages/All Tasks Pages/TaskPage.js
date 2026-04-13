@@ -174,6 +174,7 @@ export default function Tasks() {
                 checked:newChecked,
                 status:newChecked ? "Completed" : "To Do",
                 actual_completed_at:newChecked ? new Date() : null,
+                //completion_notified: newChecked ? true : false,
             })
             .eq("id",id);
 

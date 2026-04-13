@@ -52,7 +52,7 @@ function App() {
 
         //startListening();
       } else {
-        // Fallback for generic messages
+        
         textToSpeak = message;
         toast(message);
         //startListening();

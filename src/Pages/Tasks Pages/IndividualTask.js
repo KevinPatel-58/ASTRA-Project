@@ -1,4 +1,4 @@
-import { FaBell, FaCalendarDay, FaCircleCheck, FaClipboardCheck, FaClock, FaClockRotateLeft, FaHourglassHalf, FaRegCircleUser } from 'react-icons/fa6';
+import { FaCalendarDay, FaCircleCheck, FaClipboardCheck, FaClockRotateLeft, FaHourglassHalf, FaRegCircleUser } from 'react-icons/fa6';
 import './IndividualTask.scss';
 import logo from '../../assets/Astra.svg';
 import Nav from './Nav';
@@ -13,6 +13,9 @@ import AddTask from './AddTask';
 import { toast } from 'react-toastify';
 import { LuShapes } from 'react-icons/lu';
 import { useVoice } from '../../context/VoiceContext';
+import { VscTrash } from 'react-icons/vsc';
+import { FaEdit } from 'react-icons/fa';
+import { MdDriveFileRenameOutline, MdSubject } from 'react-icons/md';
 dayjs.extend(customParseFormat);
 
 export default function IndividualTask(){
@@ -35,17 +38,22 @@ export default function IndividualTask(){
         console.log("executing voice: ",voiceTaskData.action)
         switch (voiceTaskData.action) {
             case "UPDATE_STATUS":
-
+                //const isVoiceCompleted = voiceTaskData.status === "Completed";
                 const{error:statusError}=await supabase
                     .from('tasks')
-                    .update({status:voiceTaskData.status, checked:voiceTaskData.checked, actual_completed_at:voiceTaskData.actual_completed_at})
+                    .update({status:voiceTaskData.status, 
+                        checked:voiceTaskData.checked, 
+                        actual_completed_at:voiceTaskData.actual_completed_at 
+                    })
                     .eq("id",id);
 
                 if(!statusError){
                     setTask(prev=>({
-                        ...prev,status:voiceTaskData.status, checked:voiceTaskData.checked
+                        ...prev,
+                        status:voiceTaskData.status, 
+                        checked:voiceTaskData.checked,
                     }));
-                    toast.success("Task Status Updated Via Voice!")
+                    toast.success("Task Status Updated Via Voice!");
                 }
                 break;
 
@@ -266,9 +274,11 @@ export default function IndividualTask(){
                                     <p className='voice-detail'>"Listening for Commands... Try saying one of the Following.."</p>
                                 </div>
                                 <div>
-                                    <p className='complete-card'> <FaCircleCheck className='vsc' /> "Mark As Complete"</p>
-                                    <p className='reschedule-card'><FaClock className='vsc'/>"Reschedule to Tomorrow"</p>
-                                    <p className='reminder-card'><FaBell className='vsc' />"Set Reminder for 5 PM"</p>
+                                    <p className='complete-card'> <FaCircleCheck className='vsc' /> "Mark As done" / "Complete Task"</p>
+                                    <p className='remove-card'><VscTrash className='vsc'/>"Remove Task"</p>
+                                    <p className='edit-card'><FaEdit className='vsc'/>"Edit Task"</p>
+                                    <p className='retitle-card'><MdDriveFileRenameOutline className='vsc' />"Change Title to [new title]"</p>
+                                    <p className='read-card'><MdSubject className='vsc'/>"Read Description"</p>
                                 </div>
                             </div>
                             <button className='previous' onClick={()=>navigate(-1)}>Go Back</button>
