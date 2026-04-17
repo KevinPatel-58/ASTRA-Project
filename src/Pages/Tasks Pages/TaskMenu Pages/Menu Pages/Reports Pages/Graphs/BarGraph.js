@@ -19,14 +19,14 @@ export default function BarGraph({ data,view }) {
     <ResponsiveContainer width="95%" height={300}>
       <BarChart data={data} margin={{top: 5, right: 5, left: -20, bottom: 5}}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" tick={{ fontSize: window.innerWidth < 500 ? 10 : 12 }} interval={0} />
+        <XAxis dataKey="name" tick={{ fontSize: window.innerWidth < 500 ? 10 : 12 }} interval={0}  />
         <YAxis />
-        <Tooltip cursor={{ fill: '#c4c4fd75', radius: [6, 6, 0, 0] }} />
-        <Legend />
+        <Tooltip cursor={{ fill: '#c4c4fd75', radius: [6, 6, 0, 0] }} isAnimationActive={false} />
+        <Legend iconType="circle" />
 
-        <Bar dataKey="Completed" fill="#40c346" radius={barRadius} barSize={70} /> 
-        <Bar dataKey="To Do" fill="#FFC107" radius={barRadius} barSize={70} /> 
-        <Bar dataKey="Missed" fill="#FF4D4F" radius={barRadius} barSize={70} /> 
+        <Bar dataKey="Completed" fill="#40c346" radius={barRadius} isAnimationActive={false} barSize={70} /> 
+        <Bar dataKey="Missed" fill="#FF4D4F" radius={barRadius} isAnimationActive={false} barSize={70} />
+        <Bar dataKey="To Do" fill="#FFC107" radius={barRadius} isAnimationActive={false} barSize={70} />  
       </BarChart>
     </ResponsiveContainer>
     </>

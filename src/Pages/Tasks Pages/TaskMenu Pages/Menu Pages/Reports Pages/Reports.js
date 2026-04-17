@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CategoryBreakdown from "./Graphs/Category";
 import MyPieChart from "./Graphs/TaskDistribution";
-
+import logo from '../../../../../assets/Astra.svg'
 import "./Reports.scss";
 import { supabase } from "../../../../../util/supabase";
 import BarGraph from "./Graphs/BarGraph";
@@ -9,6 +9,7 @@ import { TfiStatsDown, TfiStatsUp } from "react-icons/tfi";
 import { useVoice } from "../../../../../context/VoiceContext";
 import { calculatePunctuality, usePunctuality } from "../../../../../Hook/usePunctuality";
 import ReportSkeleton from "../../../../../Components/ReportSkeleton";
+import { HiOutlineDownload } from "react-icons/hi";
 
 export default function Reports() {
   const {viewMode, setViewMode,refreshSignal} = useVoice();
@@ -321,11 +322,156 @@ export default function Reports() {
     setLoading(false);
   };
 
+  // const handleExport = () => {
+  //   // Prepare CSV content
+  //   // const headers = ["Category", "Count", "Percentage"];
+  //   // const rows = data.categories.map(cat => [cat.name, cat.count, `${cat.value}%`]);
+    
+  //   // // Add summary rows
+  //   // rows.push([]);
+  //   // rows.push(["Metric", "Value"]);
+  //   // rows.push(["Total Tasks", data.totalTasks]);
+  //   // rows.push(["Completion Rate", `${data.completionRate}%`]);
+  //   // rows.push(["Punctuality Score", `${punctualityScore}%`]);
+
+  //   // const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+    
+  //   // // Download logic
+  //   // const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  //   // const url = URL.createObjectURL(blob);
+  //   // const link = document.createElement("a");
+  //   // link.setAttribute("href", url);
+  //   // link.setAttribute("download", `ASTRA_Report_${viewMode}_${new Date().toLocaleDateString()}.csv`);
+  //   // link.click();
+
+  //   const originalTitle = document.title;
+  //   document.title = `ASTRA_${viewMode}_Report_${new Date().toLocaleDateString()}`;
+    
+  //   //window.print();
+  //   window.scrollTo(0, 0);
+    
+  //   setTimeout(() => {
+  //       window.print();
+  //   }, 500);
+    
+  //   // Restore original title after print dialog closes
+  //   document.title = originalTitle;
+  // };
+
+  const handleExportPDF = () => {
+  
+    const content = document.getElementById("printable-report").innerHTML;
+    const logo="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjIiIGhlaWdodD0iNjEiIHZpZXdCb3g9IjAgMCA2MiA2MSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjY0MDYgNTZMMjAuNDU5IDE2LjIxNDhIMjEuNDg0NEwyNS41ODU5IDM1LjM1NTVMMjEuMDc0MiA1NkgxMS42NDA2Wk0yNi4yMDEyIDUwLjE4OTVMMjguMjUyIDQwLjc1NTlIMzAuNzEyOUwyMy40NjY4IDguMTQ4NDRIMzIuOTY4OEw0NC4yNDggNTZIMzQuNjc3N0wzMy4zMTA1IDUwLjE4OTVIMjYuMjAxMloiIGZpbGw9IiNERTA5RDAiLz4KPGxpbmUgeDE9IjkuOTk4MjUiIHkxPSI1LjI2NTciIHgyPSI0OS45OTgyIiB5Mj0iNS4yNjU3IiBzdHJva2U9IiNCODM3QTkiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBvcGFjaXR5PSIwLjciIGQ9Ik0zOC42NDg3IDM3LjI3MjhMMzUuNzI3IDI5LjY0ODVMNDMuMzUxMyAyNi43MjY4TDQ2LjI3MyAzNC4zNTExTDM4LjY0ODcgMzcuMjcyOFpNNTIuMzMxNiA2LjU4NzU0TDUzLjI0NDkgNi45OTQ4TDQxLjkxMzMgMzIuNDA3MUw0MSAzMS45OTk4TDQwLjA4NjcgMzEuNTkyNkw1MS40MTgzIDYuMTgwMjlMNTIuMzMxNiA2LjU4NzU0WiIgZmlsbD0iI0NDMzU4RiIvPgo8cGF0aCBvcGFjaXR5PSIwLjciIGQ9Ik0zNyAzMi42NjM2TDU3LjQ3MjEgNTQuNjE2MSIgc3Ryb2tlPSIjRDkyOEFDIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K";
+    const printWindow = document.createElement('iframe');
+    printWindow.style.position = 'fixed';
+    printWindow.style.right = '0';
+    printWindow.style.bottom = '0';
+    printWindow.style.width = '0';
+    printWindow.style.height = '0';
+    printWindow.style.border = '0';
+    document.body.appendChild(printWindow);
+
+    const doc = printWindow.contentWindow.document;
+
+    doc.write(`
+        <html>
+            <head>
+                <title>ASTRA Productivity Report</title>
+                
+                <style>
+                    body { font-family: sans-serif; padding: 20px; color: #333; }
+                    .logo {
+                      height: 50px;
+                      width: 50px;
+                    }
+                    .card-container { 
+                        display: grid; 
+                        grid-template-columns: 1fr 1fr; 
+                        gap: 20px; 
+                        margin-bottom: 40px; 
+                    }
+                    .task-card { 
+                        border: 1px solid #eee; 
+                        padding: 15px; 
+                        border-radius: 10px; 
+                    }
+                    .num { font-size: 24px; font-weight: bold; margin: 10px 0; }
+                    .head { color: #666; font-size: 14px; text-transform: uppercase; }
+
+                    .better, .positive { color: #22c55e !important; } /* Green */
+                    .poor, .negative { color: #ef4444 !important; }
+                    
+                    .graph-container, .pie-graph, .horizontal-bar { 
+                      width: 100% !important; 
+                      page-break-inside: avoid; 
+                      margin-bottom: 50px;
+                      display: block;
+                      border: 1px solid #e0e0e0;
+                      border-radius: 15px;
+                      padding: 10px;
+                    }
+
+                    .report-meta {
+                      text-align: right;
+                      color: #666;
+                      font-size: 14px;
+                      margin-bottom: 20px;
+                    }
+                  
+                    .graph-container svg.recharts-surface {
+                      width: 55% !important;
+                    }
+                      
+                    .recharts-legend-wrapper {
+                        width: 25% !important;
+                        left: 17% !important;
+                        display: flex !important;
+                        justify-self: center !important;
+                    }
+
+                    .recharts-cartesian-axis-tick-value {
+                        font-size: 25px !important;
+                        text-anchor: middle !important; /* Forces X-axis text to stay centered under bars */
+                    }
+
+                    h2 { border-left: 4px solid fuchsia; padding-left: 10px; margin-bottom: 20px; }
+                </style>
+            </head>
+            <body>
+              <div style="display:flex; align-items:center; gap:15px; margin-bottom:30px; justify-self:center;">
+                <img src='${logo}' alt='Astra Logo' className='logo' />
+                <h2>ASTRA</h2>
+              </div>
+              <div class="report-meta">
+                  <strong>${viewMode} Report</strong><br />
+                  Generated on ${new Date().toLocaleDateString()}
+              </div>
+                ${content}
+            </body>
+        </html>
+    `);
+
+    doc.close();
+
+    // 4. Print and Cleanup
+    printWindow.contentWindow.focus();
+    setTimeout(() => {
+        printWindow.contentWindow.print();
+        document.body.removeChild(printWindow);
+    }, 500);
+};
+
   return (
     <div className="reports">
-      <div>
-        <p className="greet">Reports & Analysis</p>
-        <p className="info">Insights into your productivity trends</p>
+      <div className="report-header">
+        <div>
+          <p className="greet">Reports & Analysis</p>
+          <p className="info">Insights into your productivity trends</p>
+        </div>
+        <button className="export-btn" onClick={() => handleExportPDF()}>
+          <HiOutlineDownload />
+          <span>Export Report</span>
+        </button>
       </div>
 
       <div className="toggle">
@@ -346,8 +492,8 @@ export default function Reports() {
       {loading ? (
         <ReportSkeleton />
       ) : (
-        <div className="card">
-          <div className="card-container">
+        <div className="card" id="printable-report">
+          <div className="card-container" >
             {[
               { label: "Completed", key: "completed" },
               { label: "Missed", key: "missed" },

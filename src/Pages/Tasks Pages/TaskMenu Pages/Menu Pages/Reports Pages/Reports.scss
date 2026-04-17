@@ -4,17 +4,51 @@
 .reports {
   @include all-menu-pages();
 
-  .greet {
-    margin: 0;
-    font-size: x-large;
-    font-weight: bold;
+  .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+
+    .greet {
+      margin: 0;
+      font-size: x-large;
+      font-weight: bold;
+    }
+
+    .info {
+      margin: 0;
+      font-size: large;
+      color: rgb(130, 130, 130);
+    }
+
+    .export-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: fuchsia;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+      margin-right: 20px;
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      svg {
+        font-size: 1.2rem;
+      }
+    }
   }
 
-  .info {
-    margin: 0;
-    font-size: large;
-    color: rgb(130, 130, 130);
-  }
+
+
 
   .toggle {
     background: var(--border);
@@ -226,18 +260,31 @@
   .reports {
     overflow-x: hidden;
 
-    .greet {
+    .report-header {
+      flex-direction: column;
+      width: fit-content;
       margin-left: 20px;
-    }
+      gap: 1rem;
+      justify-self: center;
 
-    .info {
-      margin-left: 20px;
+      .greet {
+        justify-self: center;
+      }
+
+      // .info {
+      //   margin-left: 20px;
+      // }
+      .export-btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     .toggle {
       margin-left: 20px;
       width: 21.2%;
       justify-content: center;
+      justify-self: center;
     }
 
     .card {
@@ -302,18 +349,20 @@
   .reports {
     overflow-x: hidden;
 
+    .report-header {
+      margin-right: 25px;
+    }
+
     .greet {
       font-size: large;
-      margin-left: 20px;
     }
 
     .info {
       font-size: medium;
-      margin-left: 20px;
     }
 
     .toggle {
-      margin-left: 20px;
+      //margin-left: 20px;
       width: 45.2%;
     }
   }

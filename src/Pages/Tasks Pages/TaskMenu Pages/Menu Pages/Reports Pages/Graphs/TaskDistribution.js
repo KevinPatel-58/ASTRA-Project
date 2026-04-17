@@ -25,13 +25,14 @@ export default function MyPieChart({ data,view }) {
             label={({ name, value }) => `${name}: ${value}%`}
             outerRadius={100}
             dataKey="value"
+            isAnimationActive={false}
           >
             {data.map((entry, index) => (
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
 
-          <Tooltip />
+          <Tooltip isAnimationActive={false} />
         </PieChart>
       </ResponsiveContainer>
     </div>
