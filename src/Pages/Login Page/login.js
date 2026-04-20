@@ -67,7 +67,7 @@ export default function Login(){
         };
         window.addEventListener("keydown",handleClick);
         return()=>window.removeEventListener("keydown",handleClick);
-    },[])
+    });
 
     function handleOnChange(e){
         const{name,value}=e.target;

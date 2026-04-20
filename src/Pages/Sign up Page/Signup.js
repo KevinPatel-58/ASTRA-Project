@@ -90,7 +90,7 @@ function App() {
     };
     window.addEventListener("keydown",handleClick);
     return()=>window.removeEventListener("keydown",handleClick);
-  },[])
+  })
  
 
   function handleOnChange(e){
