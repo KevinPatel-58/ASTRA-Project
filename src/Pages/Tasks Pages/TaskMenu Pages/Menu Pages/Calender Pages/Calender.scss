@@ -391,23 +391,23 @@
     }
   }
 
-  // .modal-overlay {
-  //   position: fixed;
-  //   inset: 0;
-  //   backdrop-filter: blur(3px);
-  //   background: rgba(0, 0, 0, 0.4);
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   width: 100%;
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
-  //   .modal-box {
-  //     width: 80%;
-  //     max-height: 90vh;
-  //     margin-top: 0;
-  //     margin-bottom: 50px;
-  //   }
-  // }
+    .modal-box {
+      width: 80%;
+      max-height: 90vh;
+      margin-top: 0;
+      margin-bottom: 50px;
+    }
+  }
 }
 
 @media (max-width: 1024px) {
